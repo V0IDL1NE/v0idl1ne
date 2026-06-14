@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts } from "@/lib/posts";
 import Logo from "@/components/Logo";
+import PostActions from "@/components/PostActions";
 
 export function generateStaticParams() {
   return posts.map(p => ({ slug: p.slug }));
@@ -100,6 +101,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="pv-body">
           <Content />
         </div>
+        <PostActions />
       </article>
 
       <footer style={s.footer}>
