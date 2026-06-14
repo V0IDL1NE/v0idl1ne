@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500&display=swap');
+
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #000000;
+  --fg: #c8bedd;
+  --purple: #8800ff;
+  --purple-mid: #aa44ff;
+  --purple-dark: #440088;
+  --purple-dim: #6a5f80;
+  --purple-muted: #4a4060;
+  --border: rgba(136, 0, 255, 0.15);
+  --border-strong: rgba(136, 0, 255, 0.4);
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-condensed: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+/* scanlines */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* callout blocks for MDX */
+.callout {
+  border-left: 3px solid var(--purple);
+  padding: 0.8rem 1rem;
+  background: rgba(136, 0, 255, 0.06);
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--purple-mid);
+  line-height: 1.5;
+}
+
+.warn {
+  border-left: 3px solid #cc2200;
+  padding: 0.8rem 1rem;
+  background: rgba(204, 34, 0, 0.05);
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #ff6644;
+  line-height: 1.5;
+}
+
+.pv-body h3 {
+  font-family: var(--font-condensed);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 2rem 0 0.8rem;
+}
+
+.pv-body p {
+  margin-bottom: 1rem;
+  color: #a090c0;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.pv-body strong {
+  color: #e0d8f0;
+}
