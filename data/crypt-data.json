@@ -1,1 +1,90 @@
-{}
+{
+  "crypt-meal-plan": {
+    "Monday::Breakfast": {
+      "candidates": [
+        "appetizers__Loaded Potato Skins"
+      ],
+      "final": null
+    },
+    "Monday::Lunch": {
+      "candidates": [],
+      "final": null
+    },
+    "Monday::Dinner": {
+      "candidates": [],
+      "final": null
+    },
+    "Tuesday::Breakfast": {
+      "candidates": [],
+      "final": null
+    },
+    "Tuesday::Lunch": {
+      "candidates": [],
+      "final": null
+    },
+    "Tuesday::Dinner": {
+      "candidates": [],
+      "final": null
+    },
+    "Wednesday::Breakfast": {
+      "candidates": [],
+      "final": null
+    },
+    "Wednesday::Lunch": {
+      "candidates": [],
+      "final": null
+    },
+    "Wednesday::Dinner": {
+      "candidates": [],
+      "final": null
+    },
+    "Thursday::Breakfast": {
+      "candidates": [],
+      "final": null
+    },
+    "Thursday::Lunch": {
+      "candidates": [],
+      "final": null
+    },
+    "Thursday::Dinner": {
+      "candidates": [],
+      "final": null
+    },
+    "Friday::Breakfast": {
+      "candidates": [],
+      "final": null
+    },
+    "Friday::Lunch": {
+      "candidates": [],
+      "final": null
+    },
+    "Friday::Dinner": {
+      "candidates": [],
+      "final": null
+    },
+    "Saturday::Breakfast": {
+      "candidates": [],
+      "final": null
+    },
+    "Saturday::Lunch": {
+      "candidates": [],
+      "final": null
+    },
+    "Saturday::Dinner": {
+      "candidates": [],
+      "final": null
+    },
+    "Sunday::Breakfast": {
+      "candidates": [],
+      "final": null
+    },
+    "Sunday::Lunch": {
+      "candidates": [],
+      "final": null
+    },
+    "Sunday::Dinner": {
+      "candidates": [],
+      "final": null
+    }
+  }
+}
