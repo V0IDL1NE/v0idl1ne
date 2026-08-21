@@ -1,9 +1,7 @@
 {
   "crypt-meal-plan": {
     "Monday::Breakfast": {
-      "candidates": [
-        "appetizers__Loaded Potato Skins"
-      ],
+      "candidates": [],
       "final": null
     },
     "Monday::Lunch": {
