@@ -1,12 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Recipe, Category } from "./menu-data";
 import { menu } from "./menu-data";
 
+const FLIP_MS = 750;
+
 export default function TestPage() {
-  const [active, setActive] = useState(0);
-  const category: Category = menu[active];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [flippingFrom, setFlippingFrom] = useState<number | null>(null);
+  const [angle, setAngle] = useState(0);
+  const timers = useRef<number[]>([]);
+
+  useEffect(() => {
+    return () => {
+      timers.current.forEach((t) => clearTimeout(t));
+    };
+  }, []);
+
+  function turnTo(target: number) {
+    if (target === currentIndex || target < 0 || target >= menu.length) return;
+    if (flippingFrom !== null) return;
+
+    setFlippingFrom(currentIndex);
+    setCurrentIndex(target);
+    setAngle(0);
+
+    const t1 = window.setTimeout(() => setAngle(-178), 20);
+    const t2 = window.setTimeout(() => {
+      setFlippingFrom(null);
+      setAngle(0);
+    }, FLIP_MS + 40);
+    timers.current.push(t1, t2);
+  }
+
+  const category = menu[currentIndex];
+  const prevCategory = flippingFrom !== null ? menu[flippingFrom] : null;
 
   return (
     <main
@@ -51,15 +80,15 @@ export default function TestPage() {
           {menu.map((cat, i) => (
             <button
               key={cat.name}
-              onClick={() => setActive(i)}
+              onClick={() => turnTo(i)}
               style={{
                 flex: "1 1 100px",
                 minWidth: "100px",
                 padding: "0.7rem 0.5rem",
                 borderRadius: "6px",
-                border: i === active ? "2px solid #fff" : "1px solid #888",
+                border: i === currentIndex ? "2px solid #fff" : "1px solid #888",
                 background:
-                  i === active
+                  i === currentIndex
                     ? "linear-gradient(180deg, #6a6a6a, #2a2a2a)"
                     : "linear-gradient(180deg, #3a3a3a, #141414)",
                 color: "#f0f0f0",
@@ -68,11 +97,12 @@ export default function TestPage() {
                 fontSize: "0.85rem",
                 textTransform: "uppercase",
                 letterSpacing: "0.03em",
-                cursor: "pointer",
+                cursor: flippingFrom !== null ? "default" : "pointer",
                 boxShadow:
-                  i === active
+                  i === currentIndex
                     ? "inset 0 0 8px rgba(255,255,255,0.15)"
                     : "inset 0 1px 0 rgba(255,255,255,0.08)",
+                opacity: flippingFrom !== null && i !== currentIndex ? 0.6 : 1,
               }}
             >
               {cat.name}
@@ -83,19 +113,149 @@ export default function TestPage() {
         <div
           style={{
             marginTop: "2.5rem",
-            background: "rgba(255,255,255,0.55)",
-            border: "1.5px solid #2a2a2a",
-            borderRadius: "10px",
-            padding: "2rem",
-            minHeight: "300px",
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
           }}
         >
-          {category.recipes.map((recipe) => (
-            <RecipeCard key={recipe.name} recipe={recipe} />
-          ))}
+          <ArrowButton
+            direction="left"
+            disabled={currentIndex === 0 || flippingFrom !== null}
+            onClick={() => turnTo(currentIndex - 1)}
+          />
+
+          <div style={{ perspective: "1800px", flex: 1 }}>
+            <div style={{ position: "relative" }}>
+              <BookPage category={category} />
+
+              {prevCategory && (
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: 5,
+                    transformStyle: "preserve-3d",
+                    transformOrigin: "left center",
+                    backfaceVisibility: "hidden",
+                    transition: `transform ${FLIP_MS}ms cubic-bezier(0.45,0.05,0.55,0.95)`,
+                    transform: `rotateY(${angle}deg)`,
+                  }}
+                >
+                  <BookPage category={prevCategory} />
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      borderRadius: "4px 14px 14px 4px",
+                      background: "linear-gradient(to left, rgba(0,0,0,0.35), transparent 55%)",
+                      opacity: angle === 0 ? 0.1 : 0.55,
+                      transition: `opacity ${FLIP_MS}ms ease`,
+                      pointerEvents: "none",
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <ArrowButton
+            direction="right"
+            disabled={currentIndex === menu.length - 1 || flippingFrom !== null}
+            onClick={() => turnTo(currentIndex + 1)}
+          />
+        </div>
+
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "1rem",
+            fontSize: "0.7rem",
+            letterSpacing: "0.15em",
+            color: "#555",
+            textTransform: "uppercase",
+          }}
+        >
+          Page {currentIndex + 1} of {menu.length} — {category.name}
         </div>
       </div>
     </main>
+  );
+}
+
+function BookPage({ category }: { category: Category }) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        background: "#faf7ef",
+        border: "1.5px solid #2a2a2a",
+        borderRadius: "4px 14px 14px 4px",
+        boxShadow: "4px 6px 18px rgba(0,0,0,0.35)",
+        padding: "2rem 2rem 2rem 2.5rem",
+        minHeight: "340px",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          width: "18px",
+          background: "linear-gradient(to right, rgba(0,0,0,0.28), transparent)",
+          pointerEvents: "none",
+        }}
+      />
+      <h2
+        style={{
+          fontFamily: "var(--font-condensed, sans-serif)",
+          fontWeight: 900,
+          textTransform: "uppercase",
+          letterSpacing: "0.04em",
+          fontSize: "1.6rem",
+          color: "#111",
+          marginBottom: "1.2rem",
+        }}
+      >
+        {category.name}
+      </h2>
+      {category.recipes.map((recipe) => (
+        <RecipeCard key={recipe.name} recipe={recipe} />
+      ))}
+    </div>
+  );
+}
+
+function ArrowButton({
+  direction,
+  disabled,
+  onClick,
+}: {
+  direction: "left" | "right";
+  disabled: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={direction === "left" ? "Previous page" : "Next page"}
+      style={{
+        flexShrink: 0,
+        width: "44px",
+        height: "44px",
+        borderRadius: "50%",
+        border: "1.5px solid #2a2a2a",
+        background: disabled ? "#d5d5d5" : "linear-gradient(180deg, #4a4a4a, #141414)",
+        color: disabled ? "#999" : "#f0f0f0",
+        fontSize: "1.2rem",
+        cursor: disabled ? "default" : "pointer",
+        boxShadow: disabled ? "none" : "0 4px 10px rgba(0,0,0,0.3)",
+      }}
+    >
+      {direction === "left" ? "‹" : "›"}
+    </button>
   );
 }
 
