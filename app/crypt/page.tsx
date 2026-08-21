@@ -9,36 +9,22 @@ export default function CryptPage() {
   return (
     <main
       style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
+        width: "100vw",
+        height: "100vh",
         background: "var(--bg)",
       }}
     >
-      <div
+      <iframe
+        src="https://www.canva.com/design/DAHS9B3pkRw/8S6h-cyiPklFI7IYuztotg/view?embed"
+        allow="fullscreen"
+        allowFullScreen
         style={{
           width: "100%",
-          maxWidth: "960px",
-          aspectRatio: "16 / 9",
-          border: "1px solid var(--border-strong)",
-          boxShadow: "0 0 24px rgba(136, 0, 255, 0.2)",
-          background: "#000",
+          height: "100%",
+          border: "none",
+          display: "block",
         }}
-      >
-        <iframe
-          src="https://www.canva.com/design/DAHS9B3pkRw/8S6h-cyiPklFI7IYuztotg/view?embed"
-          loading="lazy"
-          allow="fullscreen"
-          allowFullScreen
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-          }}
-        />
-      </div>
+      />
     </main>
   );
 }
