@@ -3,11 +3,11 @@
 import { ViewTransition } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { menu } from "./menu-data";
+import { sections } from "./sections";
 
 export default function TestLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const activeSlug = pathname.split("/")[2] ?? "";
+  const activeSection = pathname.split("/")[2] ?? "";
 
   return (
     <main
@@ -25,78 +25,78 @@ export default function TestLayout({ children }: { children: React.ReactNode }) 
         href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       />
 
-      <ViewTransition name="book-page" enter="page-flip" exit="page-flip" default="none" key={activeSlug}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2rem 5rem" }}>
-          <nav
+      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2rem 5rem" }}>
+        <nav
+          style={{
+            background: "#0a0a0a",
+            borderRadius: "10px",
+            padding: "0.9rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.6rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
+          }}
+        >
+          <Link
+            href="/test"
+            aria-label="Home"
+            title="Home"
             style={{
-              background: "#0a0a0a",
-              borderRadius: "10px",
-              padding: "0.9rem",
               display: "flex",
               alignItems: "center",
-              gap: "0.6rem",
-              flexWrap: "wrap",
               justifyContent: "center",
-              boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
+              width: "36px",
+              height: "36px",
+              fontSize: "1.3rem",
+              color: activeSection ? "#999" : "#fff",
+              textDecoration: "none",
+              flexShrink: 0,
             }}
           >
-            <Link
-              href="/test"
-              aria-label="Home"
-              title="Home"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "36px",
-                height: "36px",
-                fontSize: "1.3rem",
-                color: activeSlug ? "#999" : "#fff",
-                textDecoration: "none",
-                flexShrink: 0,
-              }}
-            >
-              ☠
-            </Link>
-            <span style={{ width: "1px", alignSelf: "stretch", background: "#333", flexShrink: 0 }} />
+            ☠
+          </Link>
+          <span style={{ width: "1px", alignSelf: "stretch", background: "#333", flexShrink: 0 }} />
 
-            {menu.map((cat) => {
-              const active = cat.slug === activeSlug;
-              return (
-                <Link
-                  key={cat.slug}
-                  href={`/test/${cat.slug}`}
-                  style={{
-                    flex: "1 1 100px",
-                    minWidth: "100px",
-                    padding: "0.7rem 0.5rem",
-                    borderRadius: "6px",
-                    border: active ? "2px solid #fff" : "1px solid #888",
-                    background: active
-                      ? "linear-gradient(180deg, #6a6a6a, #2a2a2a)"
-                      : "linear-gradient(180deg, #3a3a3a, #141414)",
-                    color: "#f0f0f0",
-                    fontFamily: "var(--font-condensed, sans-serif)",
-                    fontWeight: 700,
-                    fontSize: "0.85rem",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.03em",
-                    textDecoration: "none",
-                    textAlign: "center",
-                    boxShadow: active
-                      ? "inset 0 0 8px rgba(255,255,255,0.15)"
-                      : "inset 0 1px 0 rgba(255,255,255,0.08)",
-                  }}
-                >
-                  {cat.name}
-                </Link>
-              );
-            })}
-          </nav>
+          {sections.map((s) => {
+            const active = s.slug === activeSection;
+            return (
+              <Link
+                key={s.slug}
+                href={`/test/${s.slug}`}
+                style={{
+                  flex: "1 1 100px",
+                  minWidth: "100px",
+                  padding: "0.7rem 0.5rem",
+                  borderRadius: "6px",
+                  border: active ? "2px solid #fff" : "1px solid #888",
+                  background: active
+                    ? "linear-gradient(180deg, #6a6a6a, #2a2a2a)"
+                    : "linear-gradient(180deg, #3a3a3a, #141414)",
+                  color: "#f0f0f0",
+                  fontFamily: "var(--font-condensed, sans-serif)",
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.03em",
+                  textDecoration: "none",
+                  textAlign: "center",
+                  boxShadow: active
+                    ? "inset 0 0 8px rgba(255,255,255,0.15)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.08)",
+                }}
+              >
+                {s.name}
+              </Link>
+            );
+          })}
+        </nav>
 
+        <ViewTransition name="section-page" enter="page-flip" exit="page-flip" default="none" key={activeSection}>
           <div style={{ marginTop: "2.5rem" }}>{children}</div>
-        </div>
-      </ViewTransition>
+        </ViewTransition>
+      </div>
     </main>
   );
 }
