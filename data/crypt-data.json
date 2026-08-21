@@ -3,8 +3,7 @@
     "Monday::Breakfast": {
       "candidates": [
         "appetizers__Loaded Potato Skins",
-        "pasta__Spaghetti Bolognese",
-        "poultry__Chicken Stir Fry"
+        "pasta__Spaghetti Bolognese"
       ],
       "final": null
     },
