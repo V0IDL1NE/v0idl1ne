@@ -8,10 +8,15 @@ export type Recipe = {
 
 export type Category = {
   name: string;
+  slug: string;
   recipes: Recipe[];
 };
 
-export const menu: Category[] = [
+function slugify(name: string): string {
+  return name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+const rawMenu: Omit<Category, "slug">[] = [
   {
     name: "Appetizers",
     recipes: [
@@ -234,3 +239,9 @@ export const menu: Category[] = [
     ],
   },
 ];
+
+export const menu: Category[] = rawMenu.map((c) => ({ ...c, slug: slugify(c.name) }));
+
+export function getCategory(slug: string): Category | undefined {
+  return menu.find((c) => c.slug === slug);
+}
