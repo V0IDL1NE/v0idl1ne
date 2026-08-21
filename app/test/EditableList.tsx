@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSharedData } from "./useSharedData";
 
 type Item = {
   id: string;
@@ -9,33 +10,17 @@ type Item = {
 };
 
 export function EditableList({
-  storageKey,
+  dataKey,
   defaultItems = [],
 }: {
-  storageKey: string;
+  dataKey: string;
   defaultItems?: string[];
 }) {
-  const [items, setItems] = useState<Item[] | null>(null);
+  const [items, setItems] = useSharedData<Item[]>(
+    dataKey,
+    defaultItems.map((text) => ({ id: crypto.randomUUID(), text, done: false }))
+  );
   const [draft, setDraft] = useState("");
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(storageKey);
-      if (raw) {
-        setItems(JSON.parse(raw));
-        return;
-      }
-    } catch {
-      // ignore malformed storage
-    }
-    setItems(defaultItems.map((text) => ({ id: crypto.randomUUID(), text, done: false })));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storageKey]);
-
-  useEffect(() => {
-    if (items === null) return;
-    localStorage.setItem(storageKey, JSON.stringify(items));
-  }, [items, storageKey]);
 
   if (items === null) return null;
 

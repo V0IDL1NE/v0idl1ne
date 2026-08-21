@@ -11,7 +11,7 @@ export default function ChoresPage() {
   return (
     <SectionCard title="Chores">
       <EditableList
-        storageKey="crypt-chores"
+        dataKey="crypt-chores"
         defaultItems={["Dishes", "Laundry", "Take out trash", "Vacuum"]}
       />
     </SectionCard>

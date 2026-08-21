@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { menu } from "../recipes/menu-data";
+import { useSharedData } from "../useSharedData";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const MAX_CANDIDATES = 3;
@@ -22,24 +22,7 @@ function emptyPlan(): PlanState {
 }
 
 export function MealPlanner() {
-  const [plan, setPlan] = useState<PlanState | null>(null);
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        setPlan({ ...emptyPlan(), ...JSON.parse(raw) });
-        return;
-      }
-    } catch {
-      // ignore malformed storage
-    }
-    setPlan(emptyPlan());
-  }, []);
-
-  useEffect(() => {
-    if (plan) localStorage.setItem(STORAGE_KEY, JSON.stringify(plan));
-  }, [plan]);
+  const [plan, setPlan] = useSharedData<PlanState>(STORAGE_KEY, emptyPlan());
 
   if (!plan) return null;
 

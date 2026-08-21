@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function GroceryPage() {
   return (
     <SectionCard title="Grocery List">
-      <EditableList storageKey="crypt-grocery" />
+      <EditableList dataKey="crypt-grocery" />
     </SectionCard>
   );
 }

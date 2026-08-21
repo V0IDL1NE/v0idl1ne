@@ -43,7 +43,7 @@ export default function GiftsPage() {
             >
               {p.name}
             </div>
-            <EditableList storageKey={p.key} />
+            <EditableList dataKey={p.key} />
           </div>
         ))}
       </div>
