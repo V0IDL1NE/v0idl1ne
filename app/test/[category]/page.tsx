@@ -24,13 +24,13 @@ export default async function CategoryPage({
   if (!category) notFound();
 
   const index = menu.findIndex((c) => c.slug === slug);
-  const prev = index > 0 ? menu[index - 1] : undefined;
+  const prevHref = index > 0 ? `/test/${menu[index - 1].slug}` : "/test";
   const next = index < menu.length - 1 ? menu[index + 1] : undefined;
 
   return (
     <>
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <ArrowLink href={prev ? `/test/${prev.slug}` : undefined} direction="left" />
+        <ArrowLink href={prevHref} direction="left" />
         <BookPage category={category} />
         <ArrowLink href={next ? `/test/${next.slug}` : undefined} direction="right" />
       </div>
