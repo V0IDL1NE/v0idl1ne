@@ -146,7 +146,7 @@ const rawMenu: Omit<Category, "slug">[] = [
     ],
   },
   {
-    name: "Breads & Breakfast",
+    name: "Breakfast",
     recipes: [
       {
         name: "Buttermilk Pancakes",
