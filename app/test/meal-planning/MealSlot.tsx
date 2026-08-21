@@ -27,11 +27,12 @@ export function MealSlot({
   const [search, setSearch] = useState("");
   const finalRecipe = slot.final ? allRecipes.find((r) => r.id === slot.final) : null;
 
-  const filtered = allRecipes.filter((r) => {
+  const matches = allRecipes.filter((r) => {
     const q = search.trim().toLowerCase();
     if (!q) return true;
     return r.name.toLowerCase().includes(q) || r.category.toLowerCase().includes(q);
   });
+  const filtered = matches.slice(0, 5);
 
   return (
     <div
@@ -185,7 +186,7 @@ export function MealSlot({
             }}
           />
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", maxHeight: "140px", overflowY: "auto" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
             {filtered.length === 0 && (
               <div style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "0.85rem", color: "#999" }}>
                 No matches.
@@ -217,6 +218,19 @@ export function MealSlot({
               );
             })}
           </div>
+          {matches.length > filtered.length && (
+            <div
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontStyle: "italic",
+                fontSize: "0.75rem",
+                color: "#999",
+                marginTop: "0.4rem",
+              }}
+            >
+              +{matches.length - filtered.length} more — keep typing to narrow it down
+            </div>
+          )}
         </div>
       )}
     </div>
