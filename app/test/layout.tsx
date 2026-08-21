@@ -33,12 +33,33 @@ export default function TestLayout({ children }: { children: React.ReactNode }) 
               borderRadius: "10px",
               padding: "0.9rem",
               display: "flex",
+              alignItems: "center",
               gap: "0.6rem",
               flexWrap: "wrap",
               justifyContent: "center",
               boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
             }}
           >
+            <Link
+              href="/test"
+              aria-label="Home"
+              title="Home"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "36px",
+                height: "36px",
+                fontSize: "1.3rem",
+                color: activeSlug ? "#999" : "#fff",
+                textDecoration: "none",
+                flexShrink: 0,
+              }}
+            >
+              ☠
+            </Link>
+            <span style={{ width: "1px", alignSelf: "stretch", background: "#333", flexShrink: 0 }} />
+
             {menu.map((cat) => {
               const active = cat.slug === activeSlug;
               return (

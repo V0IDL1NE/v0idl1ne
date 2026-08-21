@@ -131,55 +131,67 @@ export function ArrowLink({
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
-    <div>
+    <details
+      style={{
+        border: "1px solid #999",
+        background: "rgba(255,255,255,0.5)",
+        borderRadius: "6px",
+        padding: "1rem 1.2rem",
+      }}
+    >
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       />
 
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "1rem", marginBottom: "0.2rem" }}>
-        <span
+      <summary style={{ cursor: "pointer" }}>
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "1rem" }}>
+          <span
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 600,
+              fontSize: "1.7rem",
+              color: "#111",
+            }}
+          >
+            {recipe.name}
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: "0.65rem",
+              letterSpacing: "0.1em",
+              color: "#888",
+              whiteSpace: "nowrap",
+              border: "1px solid #ccc",
+              borderRadius: "3px",
+              padding: "0.15rem 0.5rem",
+            }}
+          >
+            {recipe.time}
+          </span>
+        </div>
+        <p
           style={{
             fontFamily: "'Cormorant Garamond', serif",
-            fontWeight: 600,
-            fontSize: "1.7rem",
-            color: "#111",
+            fontStyle: "italic",
+            fontSize: "1.05rem",
+            color: "#555",
+            margin: "0.2rem 0 0",
           }}
         >
-          {recipe.name}
-        </span>
-        <span
-          style={{
-            fontFamily: "var(--font-mono, monospace)",
-            fontSize: "0.65rem",
-            letterSpacing: "0.1em",
-            color: "#888",
-            whiteSpace: "nowrap",
-            border: "1px solid #ccc",
-            borderRadius: "3px",
-            padding: "0.15rem 0.5rem",
-          }}
-        >
-          {recipe.time}
-        </span>
-      </div>
-      <p
-        style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontStyle: "italic",
-          fontSize: "1.05rem",
-          color: "#555",
-          marginBottom: "1.2rem",
-        }}
-      >
-        {recipe.blurb}
-      </p>
+          {recipe.blurb}
+        </p>
+      </summary>
 
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "2rem",
+          marginTop: "1.3rem",
+          paddingTop: "1.2rem",
+          borderTop: "1px solid #ddd",
         }}
       >
         <div>
@@ -246,6 +258,6 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           </ol>
         </div>
       </div>
-    </div>
+    </details>
   );
 }
