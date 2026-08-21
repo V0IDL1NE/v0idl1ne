@@ -14,10 +14,13 @@ type Element = {
   height: number;
   text?: string;
   fontSize?: number;
+  fontFamily?: string;
   color?: string;
   fontWeight?: number;
   src?: string;
   fill?: string;
+  background?: string;
+  borderRadius?: string;
 };
 
 const CANVAS_W = 1200;
@@ -107,6 +110,15 @@ export default function DesignPage() {
           .join(" ")
           .trim();
 
+      const hasVisibleBackground = (style: CSSStyleDeclaration) => {
+        if (style.backgroundImage && style.backgroundImage !== "none") return true;
+        const m = style.backgroundColor.match(/rgba?\(([^)]+)\)/);
+        if (!m) return false;
+        const parts = m[1].split(",").map((s) => parseFloat(s.trim()));
+        const alpha = parts.length === 4 ? parts[3] : 1;
+        return alpha > 0.02;
+      };
+
       for (const el of nodes) {
         if (el.tagName === "SCRIPT" || el.tagName === "STYLE" || el.tagName === "LINK") continue;
         const rect = el.getBoundingClientRect();
@@ -129,6 +141,19 @@ export default function DesignPage() {
           continue;
         }
 
+        if (hasVisibleBackground(style)) {
+          imported.push({
+            id: crypto.randomUUID(),
+            type: "rect",
+            x: Math.round(rect.left),
+            y: Math.round(rect.top),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+            background: style.backgroundImage !== "none" ? style.backgroundImage : style.backgroundColor,
+            borderRadius: style.borderRadius,
+          });
+        }
+
         const text = ownText(el);
         if (!text) continue;
         imported.push({
@@ -140,6 +165,7 @@ export default function DesignPage() {
           height: Math.round(rect.height),
           text,
           fontSize: parseFloat(style.fontSize) || 16,
+          fontFamily: style.fontFamily || undefined,
           color: style.color || "#111111",
           fontWeight: Number(style.fontWeight) || 400,
         });
@@ -468,12 +494,13 @@ export default function DesignPage() {
                 <div
                   style={{
                     width: "100%",
-                    height: "100%",
+                    minHeight: "100%",
                     fontSize: el.fontSize ?? 24,
                     color: el.color ?? "#111",
                     fontWeight: el.fontWeight ?? 400,
-                    fontFamily: "Barlow, sans-serif",
-                    overflow: "hidden",
+                    fontFamily: el.fontFamily || "Barlow, sans-serif",
+                    whiteSpace: "pre-wrap",
+                    overflow: "visible",
                     userSelect: "none",
                   }}
                 >
@@ -484,7 +511,9 @@ export default function DesignPage() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={el.src} alt="" draggable={false} style={{ width: "100%", height: "100%", objectFit: "cover", userSelect: "none" }} />
               )}
-              {el.type === "rect" && <div style={{ width: "100%", height: "100%", background: el.fill ?? "#8800ff" }} />}
+              {el.type === "rect" && (
+                <div style={{ width: "100%", height: "100%", background: el.background ?? el.fill ?? "#8800ff", borderRadius: el.borderRadius ?? 0 }} />
+              )}
               {el.type === "circle" && <div style={{ width: "100%", height: "100%", background: el.fill ?? "#ff0088", borderRadius: "50%" }} />}
 
               {selectedId === el.id && (
