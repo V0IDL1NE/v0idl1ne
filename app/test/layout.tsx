@@ -20,26 +20,13 @@ export default function TestLayout({ children }: { children: React.ReactNode }) 
           "radial-gradient(ellipse at 50% 0%, #ffffff 0%, #e6e6e6 45%, #adadad 100%)",
       }}
     >
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      />
 
       <ViewTransition name="book-page" enter="page-flip" exit="page-flip" default="none" key={activeSlug}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "3rem 2rem 5rem" }}>
-          <Link href="/test" style={{ textDecoration: "none" }}>
-            <h1
-              style={{
-                fontFamily: "'Pirata One', serif",
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-                textAlign: "center",
-                color: "#0a0a0a",
-                WebkitTextStroke: "1.5px #d8d8d8",
-                textShadow: "0 3px 4px rgba(0,0,0,0.35)",
-                margin: "0 0 2rem",
-              }}
-            >
-              Inside The Crypt
-            </h1>
-          </Link>
-
           <nav
             style={{
               background: "#0a0a0a",

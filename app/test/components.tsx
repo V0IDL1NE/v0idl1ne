@@ -10,7 +10,7 @@ export function BookPage({ category }: { category: Category }) {
         border: "1.5px solid #2a2a2a",
         borderRadius: "4px 14px 14px 4px",
         boxShadow: "4px 6px 18px rgba(0,0,0,0.35)",
-        padding: "2rem 2rem 2rem 2.5rem",
+        padding: "2.2rem 2.4rem 2.4rem 2.8rem",
         minHeight: "340px",
         overflow: "hidden",
         flex: 1,
@@ -27,21 +27,62 @@ export function BookPage({ category }: { category: Category }) {
           pointerEvents: "none",
         }}
       />
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          width: "36px",
+          height: "36px",
+          background: "linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.12) 50%)",
+          pointerEvents: "none",
+        }}
+      />
+
       <h2
         style={{
           fontFamily: "var(--font-condensed, sans-serif)",
           fontWeight: 900,
           textTransform: "uppercase",
-          letterSpacing: "0.04em",
-          fontSize: "1.6rem",
+          letterSpacing: "0.06em",
+          fontSize: "1.7rem",
           color: "#111",
-          marginBottom: "1.2rem",
+          marginBottom: "0.6rem",
         }}
       >
         {category.name}
       </h2>
-      {category.recipes.map((recipe) => (
-        <RecipeCard key={recipe.name} recipe={recipe} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.7rem",
+          color: "#999",
+          marginBottom: "1.8rem",
+        }}
+      >
+        <span style={{ width: "32px", height: "1px", background: "#bbb" }} />
+        <span style={{ fontSize: "0.75rem" }}>❦</span>
+        <span style={{ flex: 1, height: "1px", background: "#bbb" }} />
+      </div>
+
+      {category.recipes.map((recipe, i) => (
+        <div key={recipe.name}>
+          {i > 0 && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "2rem 0",
+                color: "#bbb",
+                fontSize: "0.8rem",
+              }}
+            >
+              ❧
+            </div>
+          )}
+          <RecipeCard recipe={recipe} />
+        </div>
       ))}
     </div>
   );
@@ -90,61 +131,121 @@ export function ArrowLink({
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
-    <details
-      style={{
-        border: "1px solid #999",
-        background: "rgba(255,255,255,0.6)",
-        borderRadius: "6px",
-        padding: "1rem 1.2rem",
-        marginBottom: "0.8rem",
-      }}
-    >
-      <summary
-        style={{
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "baseline",
-          justifyContent: "space-between",
-          gap: "1rem",
-        }}
-      >
-        <span style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
-          <span style={{ fontWeight: 600, fontSize: "1.05rem", color: "#111" }}>
-            {recipe.name}
-          </span>
-          <span style={{ fontSize: "0.85rem", color: "#444" }}>{recipe.blurb}</span>
+    <div>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      />
+
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "1rem", marginBottom: "0.2rem" }}>
+        <span
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 600,
+            fontSize: "1.7rem",
+            color: "#111",
+          }}
+        >
+          {recipe.name}
         </span>
-        <span style={{ fontSize: "0.7rem", letterSpacing: "0.1em", color: "#666", whiteSpace: "nowrap" }}>
+        <span
+          style={{
+            fontFamily: "var(--font-mono, monospace)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.1em",
+            color: "#888",
+            whiteSpace: "nowrap",
+            border: "1px solid #ccc",
+            borderRadius: "3px",
+            padding: "0.15rem 0.5rem",
+          }}
+        >
           {recipe.time}
         </span>
-      </summary>
+      </div>
+      <p
+        style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: "italic",
+          fontSize: "1.05rem",
+          color: "#555",
+          marginBottom: "1.2rem",
+        }}
+      >
+        {recipe.blurb}
+      </p>
 
-      <div style={{ marginTop: "1.1rem", display: "grid", gap: "1.1rem" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "2rem",
+        }}
+      >
         <div>
-          <div style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#555", textTransform: "uppercase", marginBottom: "0.4rem" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: "0.65rem",
+              letterSpacing: "0.15em",
+              color: "#8800ff",
+              textTransform: "uppercase",
+              marginBottom: "0.6rem",
+              borderBottom: "1px solid #ddd",
+              paddingBottom: "0.3rem",
+            }}
+          >
             Ingredients
           </div>
-          <ul style={{ paddingLeft: "1.1rem", display: "grid", gap: "0.25rem" }}>
+          <ul style={{ paddingLeft: "1.1rem", display: "grid", gap: "0.4rem" }}>
             {recipe.ingredients.map((ing) => (
-              <li key={ing} style={{ fontSize: "0.8rem", color: "#333" }}>
+              <li
+                key={ing}
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.02rem",
+                  color: "#333",
+                  lineHeight: 1.4,
+                }}
+              >
                 {ing}
               </li>
             ))}
           </ul>
         </div>
+
         <div>
-          <div style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#555", textTransform: "uppercase", marginBottom: "0.4rem" }}>
-            Steps
+          <div
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: "0.65rem",
+              letterSpacing: "0.15em",
+              color: "#8800ff",
+              textTransform: "uppercase",
+              marginBottom: "0.6rem",
+              borderBottom: "1px solid #ddd",
+              paddingBottom: "0.3rem",
+            }}
+          >
+            Method
           </div>
-          <ol style={{ paddingLeft: "1.1rem", display: "grid", gap: "0.35rem" }}>
+          <ol style={{ paddingLeft: "1.2rem", display: "grid", gap: "0.6rem" }}>
             {recipe.steps.map((step, i) => (
-              <li key={i} style={{ fontSize: "0.85rem", color: "#222", lineHeight: 1.55 }}>
+              <li
+                key={i}
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.08rem",
+                  color: "#222",
+                  lineHeight: 1.5,
+                }}
+              >
                 {step}
               </li>
             ))}
           </ol>
         </div>
       </div>
-    </details>
+    </div>
   );
 }
