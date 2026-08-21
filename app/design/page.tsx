@@ -57,6 +57,8 @@ export default function DesignPage() {
   const [guide, setGuide] = useState({ x: false, y: false });
   const elementsRef = useRef<Element[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [importPath, setImportPath] = useState("/crypt");
+  const [importing, setImporting] = useState(false);
 
   useEffect(() => {
     if (elements) elementsRef.current = elements;
@@ -66,6 +68,96 @@ export default function DesignPage() {
     const res = await fetch(`/api/crypt-data?key=${DESIGN_KEY}`);
     const data = await res.json();
     setElements(data.value ?? []);
+  }
+
+  async function importPage(path: string) {
+    if (!path.startsWith("/")) path = "/" + path;
+    setImporting(true);
+
+    const iframe = document.createElement("iframe");
+    iframe.style.position = "fixed";
+    iframe.style.left = "-99999px";
+    iframe.style.top = "0";
+    iframe.style.width = `${CANVAS_W}px`;
+    iframe.style.height = `${CANVAS_H}px`;
+    iframe.style.border = "none";
+    document.body.appendChild(iframe);
+
+    try {
+      await new Promise<void>((resolve, reject) => {
+        iframe.onload = () => resolve();
+        iframe.onerror = () => reject(new Error("Failed to load page"));
+        iframe.src = path;
+      });
+
+      // give client-rendered content a moment to hydrate/settle
+      await new Promise((r) => setTimeout(r, 700));
+
+      const doc = iframe.contentDocument;
+      const win = iframe.contentWindow;
+      if (!doc || !win) throw new Error("Could not access page content");
+
+      const imported: Element[] = [];
+      const nodes = Array.from(doc.body.querySelectorAll<HTMLElement>("*"));
+
+      const ownText = (el: HTMLElement) =>
+        Array.from(el.childNodes)
+          .filter((n) => n.nodeType === Node.TEXT_NODE)
+          .map((n) => n.textContent || "")
+          .join(" ")
+          .trim();
+
+      for (const el of nodes) {
+        if (el.tagName === "SCRIPT" || el.tagName === "STYLE" || el.tagName === "LINK") continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.width < 4 || rect.height < 4) continue;
+        const style = win.getComputedStyle(el);
+        if (style.display === "none" || style.visibility === "hidden" || Number(style.opacity) === 0) continue;
+
+        if (el.tagName === "IMG") {
+          const src = (el as HTMLImageElement).src;
+          if (!src) continue;
+          imported.push({
+            id: crypto.randomUUID(),
+            type: "image",
+            x: Math.round(rect.left),
+            y: Math.round(rect.top),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+            src,
+          });
+          continue;
+        }
+
+        const text = ownText(el);
+        if (!text) continue;
+        imported.push({
+          id: crypto.randomUUID(),
+          type: "text",
+          x: Math.round(rect.left),
+          y: Math.round(rect.top),
+          width: Math.round(rect.width),
+          height: Math.round(rect.height),
+          text,
+          fontSize: parseFloat(style.fontSize) || 16,
+          color: style.color || "#111111",
+          fontWeight: Number(style.fontWeight) || 400,
+        });
+      }
+
+      if (imported.length === 0) {
+        alert("Couldn't find any content to import from that page.");
+      } else {
+        const next = [...elementsRef.current, ...imported.slice(0, 80)];
+        setElements(next);
+        saveElements(next);
+      }
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Import failed");
+    } finally {
+      document.body.removeChild(iframe);
+      setImporting(false);
+    }
   }
 
   useEffect(() => {
@@ -252,8 +344,24 @@ export default function DesignPage() {
   return (
     <div style={{ display: "flex", height: "100vh", background: "#050505", fontFamily: "'Share Tech Mono', monospace" }}>
       {/* Toolbar */}
-      <div style={{ width: "200px", flexShrink: 0, borderRight: "1px solid #1a1a1a", padding: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <div style={{ color: "#8800ff", fontSize: "0.65rem", letterSpacing: "0.15em", marginBottom: "0.5rem" }}>ADD</div>
+      <div style={{ width: "220px", flexShrink: 0, borderRight: "1px solid #1a1a1a", padding: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem", overflowY: "auto" }}>
+        <div style={{ color: "#8800ff", fontSize: "0.65rem", letterSpacing: "0.15em", marginBottom: "0.5rem" }}>IMPORT PAGE</div>
+        <input
+          value={importPath}
+          onChange={(e) => setImportPath(e.target.value)}
+          placeholder="/crypt"
+          style={inputStyle}
+        />
+        <ToolButton
+          label={importing ? "Importing…" : "Import"}
+          onClick={() => !importing && importPage(importPath)}
+        />
+        <div style={{ color: "#555", fontSize: "0.6rem", lineHeight: 1.5, marginBottom: "0.5rem" }}>
+          Loads that page and drops its visible text/images onto the canvas as editable elements. Layout/styling
+          won't be perfect — it's a starting point, not a live copy.
+        </div>
+
+        <div style={{ color: "#8800ff", fontSize: "0.65rem", letterSpacing: "0.15em", margin: "0.5rem 0" }}>ADD</div>
 
         <ToolButton
           label="+ Text"
