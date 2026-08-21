@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSharedData } from "./useSharedData";
+import { useSharedData } from "@/lib/useSharedData";
 
 type Item = {
   id: string;
