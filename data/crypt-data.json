@@ -6,7 +6,7 @@
         "pasta__Spaghetti Bolognese",
         "poultry__Chicken Stir Fry"
       ],
-      "final": "pasta__Spaghetti Bolognese"
+      "final": null
     },
     "Monday::Lunch": {
       "candidates": [],
