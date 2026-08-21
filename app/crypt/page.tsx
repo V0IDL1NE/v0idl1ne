@@ -9,9 +9,12 @@ export default function CryptPage() {
   return (
     <main
       style={{
+        position: "fixed",
+        inset: 0,
         width: "100vw",
         height: "100vh",
         background: "var(--bg)",
+        zIndex: 1000,
       }}
     >
       <iframe
