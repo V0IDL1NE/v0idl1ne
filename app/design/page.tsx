@@ -340,6 +340,8 @@ export default function DesignPage() {
   }
 
   const selected = elements?.find((e) => e.id === selectedId) ?? null;
+  const contentBottom = elements?.length ? Math.max(...elements.map((e) => e.y + e.height)) : 0;
+  const canvasHeight = Math.max(CANVAS_H, contentBottom + 40);
 
   return (
     <div style={{ display: "flex", height: "100vh", background: "#050505", fontFamily: "'Share Tech Mono', monospace" }}>
@@ -433,7 +435,7 @@ export default function DesignPage() {
           style={{
             position: "relative",
             width: CANVAS_W,
-            height: CANVAS_H,
+            height: canvasHeight,
             flexShrink: 0,
             background: "#ffffff",
             backgroundImage:
