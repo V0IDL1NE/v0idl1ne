@@ -74,7 +74,7 @@ function Modal({ type, onClose }: { type: ModalType; onClose: () => void }) {
             <label className="modal-label">CATEGORY</label>
             <select className="modal-select" defaultValue="">
               <option value="" disabled>SELECT A CATEGORY</option>
-              {["ELECTRICAL","LEGAL","HEALTH","HOME","FINANCE","OTHER"].map(c => <option key={c}>{c}</option>)}
+              {["ELECTRICAL","LEGAL","HEALTH","HOME","FINANCE","AUTO","TECH","CONSUMER","OTHER"].map(c => <option key={c}>{c}</option>)}
             </select>
             <label className="modal-label">TITLE / TOPIC</label>
             <input className="modal-input" type="text" placeholder="What's the knowledge?" required />

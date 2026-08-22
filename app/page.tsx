@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { posts, categories } from "@/lib/posts";
+import Footer from "@/components/Footer";
 
 /* ── Inline SVG triangle (reused in splash + nav) ── */
 function Triangle({ size }: { size: number }) {
@@ -90,7 +91,7 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
               <label className="modal-label">CATEGORY</label>
               <select className="modal-select" defaultValue="">
                 <option value="" disabled>SELECT A CATEGORY</option>
-                {["ELECTRICAL","LEGAL","HEALTH","HOME","FINANCE","OTHER"].map(c => (
+                {["ELECTRICAL","LEGAL","HEALTH","HOME","FINANCE","AUTO","TECH","CONSUMER","OTHER"].map(c => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
@@ -193,12 +194,6 @@ const s = {
   },
   submitLabel: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.25em", marginBottom: "0.5rem" },
   submitDesc: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.62rem", color: "#4a4060", lineHeight: 1.5 },
-  footer: {
-    borderTop: "1px solid rgba(136,0,255,0.15)", padding: "1.5rem 2rem",
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-  },
-  footerLogo: { fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1rem", fontWeight: 900, letterSpacing: "0.2em", color: "#440088" },
-  footerCopy: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.58rem", color: "#332844", letterSpacing: "0.15em" },
 };
 
 export default function Home() {
@@ -365,10 +360,7 @@ export default function Home() {
           </div>
         </div>
 
-        <footer style={s.footer}>
-          <div style={s.footerLogo}>V0IDL1NE</div>
-          <div style={s.footerCopy}>// NO CREDENTIALS. NO PAYWALL. NO BULLSHIT.</div>
-        </footer>
+        <Footer />
       </div>
 
       <Modals open={modal} onClose={() => setModal(null)} />

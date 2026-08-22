@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { posts } from "@/lib/posts";
 import Logo from "@/components/Logo";
 import PostActions from "@/components/PostActions";
+import Footer from "@/components/Footer";
 
 export function generateStaticParams() {
   return posts.map(p => ({ slug: p.slug }));
@@ -55,27 +56,7 @@ const s = {
     paddingBottom: "1rem",
     borderBottom: "1px solid rgba(136,0,255,0.15)",
   },
-  footer: {
-    borderTop: "1px solid rgba(136,0,255,0.15)",
-    padding: "1.5rem 2rem",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: "4rem",
-  },
-  footerLogo: {
-    fontFamily: "'Barlow Condensed', sans-serif",
-    fontSize: "1rem",
-    fontWeight: 900,
-    letterSpacing: "0.2em",
-    color: "#440088",
-  },
-  footerCopy: {
-    fontFamily: "'Share Tech Mono', monospace",
-    fontSize: "0.58rem",
-    color: "#332844",
-    letterSpacing: "0.15em",
-  },
+  footerWrap: { marginTop: "4rem" },
 };
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -104,10 +85,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <PostActions />
       </article>
 
-      <footer style={s.footer}>
-        <div style={s.footerLogo}>V0IDL1NE</div>
-        <div style={s.footerCopy}>// NO CREDENTIALS. NO PAYWALL. NO BULLSHIT.</div>
-      </footer>
+      <div style={s.footerWrap}>
+        <Footer />
+      </div>
     </>
   );
 }
