@@ -18,7 +18,7 @@ const s = {
     background: "#000",
   },
   backBtn: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.65rem",
     color: "#8800ff",
     letterSpacing: "0.2em",
@@ -26,7 +26,7 @@ const s = {
   },
   article: { padding: "2rem", maxWidth: "700px" },
   title: {
-    fontFamily: "'Barlow Condensed', sans-serif",
+    fontFamily: "var(--font-condensed)",
     fontSize: "2.6rem",
     fontWeight: 900,
     color: "#fff",
@@ -36,7 +36,7 @@ const s = {
   },
   p: { color: "#a090c0", lineHeight: 1.8, fontSize: "0.95rem", marginBottom: "1.2rem" },
   h3: {
-    fontFamily: "'Barlow Condensed', sans-serif",
+    fontFamily: "var(--font-condensed)",
     fontSize: "1.3rem",
     fontWeight: 700,
     color: "#fff",

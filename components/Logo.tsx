@@ -10,7 +10,7 @@ export default function Logo() {
       </svg>
       <div>
         <div style={{
-          fontFamily: "'Barlow Condensed', sans-serif",
+          fontFamily: "var(--font-condensed)",
           fontSize: "1.8rem",
           fontWeight: 900,
           letterSpacing: "0.15em",
@@ -20,7 +20,7 @@ export default function Logo() {
           V<span style={{ color: "#aa44ff" }}>0</span>IDL<span style={{ color: "#aa44ff" }}>1</span>NE
         </div>
         <div style={{
-          fontFamily: "'Share Tech Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: "0.6rem",
           color: "#6a5f80",
           letterSpacing: "0.2em",

@@ -4,7 +4,7 @@ import { posts, type Post } from "@/lib/posts";
 const s = {
   wrap: { marginTop: "3rem", paddingTop: "2rem", borderTop: "1px solid rgba(136,0,255,0.15)" },
   label: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.65rem",
     color: "#440088",
     letterSpacing: "0.25em",
@@ -17,14 +17,14 @@ const s = {
     textDecoration: "none",
   },
   cat: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.6rem",
     color: "#8800ff",
     letterSpacing: "0.2em",
     marginBottom: "0.3rem",
   },
   title: {
-    fontFamily: "'Barlow Condensed', sans-serif",
+    fontFamily: "var(--font-condensed)",
     fontSize: "1.1rem",
     fontWeight: 700,
     color: "#c8bedd",

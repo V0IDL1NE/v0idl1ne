@@ -102,7 +102,7 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
               <textarea name="message" className="modal-textarea" placeholder="Describe the inaccuracy or what needs to be corrected..." required />
               <label className="modal-label">YOUR SOURCE (optional)</label>
               <input name="source" className="modal-input" type="text" placeholder="Link or reference supporting your correction" />
-              {reportError && <div style={{ color: "#ff6644", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.65rem", marginTop: "0.8rem" }}>{reportError}</div>}
+              {reportError && <div style={{ color: "#ff6644", fontFamily: "var(--font-mono)", fontSize: "0.65rem", marginTop: "0.8rem" }}>{reportError}</div>}
               <div className="modal-actions">
                 <button type="submit" className="modal-submit" disabled={reportSending}>{reportSending ? "SENDING..." : "SUBMIT FLAG"}</button>
                 <button type="button" className="modal-cancel" onClick={onClose}>CANCEL</button>
@@ -139,7 +139,7 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
               <textarea name="info" className="modal-textarea" style={{ minHeight: 130 }} placeholder="Write it out. Be specific. Include why most people don't know this." required />
               <label className="modal-label">YOUR SOURCE (optional)</label>
               <input name="source" className="modal-input" type="text" placeholder="Link, code, law number, anything that backs it up" />
-              {submitError && <div style={{ color: "#ff6644", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.65rem", marginTop: "0.8rem" }}>{submitError}</div>}
+              {submitError && <div style={{ color: "#ff6644", fontFamily: "var(--font-mono)", fontSize: "0.65rem", marginTop: "0.8rem" }}>{submitError}</div>}
               <div className="modal-actions">
                 <button type="submit" className="modal-submit" disabled={submitSending}>{submitSending ? "SENDING..." : "SUBMIT"}</button>
                 <button type="button" className="modal-cancel" onClick={onClose}>CANCEL</button>
@@ -157,13 +157,13 @@ const s = {
   /* nav */
   navLogo: { display: "flex", alignItems: "center", gap: 10, cursor: "pointer" as const, flexShrink: 0 },
   navName: {
-    fontFamily: "'Barlow Condensed', sans-serif",
+    fontFamily: "var(--font-condensed)",
     fontSize: "1.2rem", fontWeight: 900, letterSpacing: "0.15em",
     color: "#fff", textShadow: "0 0 20px #8800ff",
   },
   navLinks: { display: "flex", gap: "1.5rem", overflowX: "auto" as const, flexWrap: "nowrap" as const, minWidth: 0 },
   navLink: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.65rem", color: "#6a5f80",
     textDecoration: "none", letterSpacing: "0.15em",
     cursor: "pointer" as const, transition: "color 0.2s",
@@ -172,13 +172,13 @@ const s = {
   /* splash */
   splashLogo: { display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "1.5rem", zIndex: 1 },
   splashName: {
-    fontFamily: "'Barlow Condensed', sans-serif",
+    fontFamily: "var(--font-condensed)",
     fontSize: "clamp(2.2rem, 11vw, 5rem)", fontWeight: 900, letterSpacing: "0.2em",
     color: "#fff", textShadow: "0 0 60px rgba(136,0,255,0.8), 0 0 120px rgba(136,0,255,0.3)",
     lineHeight: 1,
   },
   splashSub: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.7rem", color: "#6a5f80", letterSpacing: "0.35em", textAlign: "center" as const,
   },
   /* content */
@@ -194,56 +194,56 @@ const s = {
     transition: "border-color 0.2s", textDecoration: "none", display: "block",
   },
   featInner: { padding: "1.5rem" },
-  featTag: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.25em", marginBottom: "0.8rem" },
+  featTag: { fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.25em", marginBottom: "0.8rem" },
   featTitle: {
-    fontFamily: "'Barlow Condensed', sans-serif", fontSize: "2.2rem", fontWeight: 900,
+    fontFamily: "var(--font-condensed)", fontSize: "2.2rem", fontWeight: 900,
     color: "#fff", lineHeight: 1, marginBottom: "0.8rem", textTransform: "uppercase" as const,
   },
   featExcerpt: { fontSize: "0.85rem", color: "#6a5f80", lineHeight: 1.6, marginBottom: "1rem" },
   featMeta: {
-    fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem",
+    fontFamily: "var(--font-mono)", fontSize: "0.6rem",
     color: "#440088", letterSpacing: "0.15em", display: "flex", gap: "1.5rem",
   },
   postItem: { borderBottom: "1px solid rgba(136,0,255,0.08)", padding: "1.2rem 0", textDecoration: "none", display: "block" },
-  postCat: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.2em", marginBottom: "0.4rem" },
+  postCat: { fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.2em", marginBottom: "0.4rem" },
   postTitle: {
-    fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.3rem", fontWeight: 700,
+    fontFamily: "var(--font-condensed)", fontSize: "1.3rem", fontWeight: 700,
     color: "#e0d8f0", textTransform: "uppercase" as const, lineHeight: 1, marginBottom: "0.4rem", transition: "color 0.2s",
   },
   postExcerpt: { fontSize: "0.78rem", color: "#4a4060", lineHeight: 1.5 },
   sideSection: { marginBottom: "2rem" },
   sideLabel: {
-    fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#440088",
+    fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#440088",
     letterSpacing: "0.25em", borderBottom: "1px solid rgba(136,0,255,0.1)",
     paddingBottom: "0.5rem", marginBottom: "1rem",
   },
   sideItem: { padding: "0.7rem 0", borderBottom: "1px solid rgba(136,0,255,0.05)", textDecoration: "none", display: "block" },
   sideTitle: {
-    fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1rem", fontWeight: 700,
+    fontFamily: "var(--font-condensed)", fontSize: "1rem", fontWeight: 700,
     color: "#c8bedd", textTransform: "uppercase" as const, transition: "color 0.2s",
   },
-  sideMeta: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.58rem", color: "#440088", letterSpacing: "0.1em", marginTop: 2 },
+  sideMeta: { fontFamily: "var(--font-mono)", fontSize: "0.58rem", color: "#440088", letterSpacing: "0.1em", marginTop: 2 },
   signal: { background: "rgba(136,0,255,0.06)", border: "1px solid rgba(136,0,255,0.2)", padding: "1rem", marginBottom: "1.5rem" },
-  signalLabel: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#440088", letterSpacing: "0.2em", marginBottom: "0.6rem" },
-  signalText: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.65rem", color: "#6a5f80", lineHeight: 1.6, letterSpacing: "0.05em" },
+  signalLabel: { fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#440088", letterSpacing: "0.2em", marginBottom: "0.6rem" },
+  signalText: { fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "#6a5f80", lineHeight: 1.6, letterSpacing: "0.05em" },
   submitBlock: {
     border: "1px solid rgba(136,0,255,0.2)", padding: "1rem", marginBottom: "1.5rem",
     background: "rgba(136,0,255,0.03)", cursor: "pointer" as const, transition: "border-color 0.2s",
   },
-  submitLabel: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.25em", marginBottom: "0.5rem" },
-  submitDesc: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.62rem", color: "#4a4060", lineHeight: 1.5 },
+  submitLabel: { fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.25em", marginBottom: "0.5rem" },
+  submitDesc: { fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "#4a4060", lineHeight: 1.5 },
   searchWrap: { padding: "1.2rem 2rem 0", background: "#000", display: "flex", alignItems: "center", gap: "1rem" },
   searchInput: { width: "100%", maxWidth: 420 },
   searchClear: {
-    fontFamily: "'Share Tech Mono', monospace", fontSize: "0.62rem",
+    fontFamily: "var(--font-mono)", fontSize: "0.62rem",
     color: "#440088", letterSpacing: "0.1em", cursor: "pointer" as const,
     background: "none", border: "none", padding: 0, whiteSpace: "nowrap" as const,
   },
   searchLabel: {
-    fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#440088",
+    fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#440088",
     letterSpacing: "0.2em", marginBottom: "1.5rem",
   },
-  searchEmpty: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.75rem", color: "#4a4060" },
+  searchEmpty: { fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "#4a4060" },
 };
 
 export default function Home() {
@@ -338,7 +338,7 @@ export default function Home() {
           <div style={s.cats}>
             {categories.map(cat => (
               <div key={cat} onClick={() => { setActiveCategory(cat); setSearchQuery(""); }} style={{
-                fontFamily: "'Share Tech Mono', monospace",
+                fontFamily: "var(--font-mono)",
                 fontSize: "0.65rem", letterSpacing: "0.15em",
                 padding: "0.3rem 0.8rem",
                 border: `1px solid ${activeCategory === cat ? "#8800ff" : "rgba(136,0,255,0.2)"}`,

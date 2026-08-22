@@ -45,7 +45,7 @@ const s = {
     background: "#000",
   },
   backBtn: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.65rem",
     color: "#8800ff",
     letterSpacing: "0.2em",
@@ -56,14 +56,14 @@ const s = {
   },
   article: { padding: "2rem", maxWidth: "700px" },
   cat: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.65rem",
     color: "#8800ff",
     letterSpacing: "0.3em",
     marginBottom: "1rem",
   },
   title: {
-    fontFamily: "'Barlow Condensed', sans-serif",
+    fontFamily: "var(--font-condensed)",
     fontSize: "3rem",
     fontWeight: 900,
     color: "#fff",
@@ -72,7 +72,7 @@ const s = {
     marginBottom: "1.5rem",
   },
   meta: {
-    fontFamily: "'Share Tech Mono', monospace",
+    fontFamily: "var(--font-mono)",
     fontSize: "0.6rem",
     color: "#440088",
     letterSpacing: "0.15em",
@@ -90,8 +90,31 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const { default: Content } = await import(`@/content/posts/${slug}.mdx`);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    articleSection: post.category,
+    keywords: post.tags.join(", "),
+    url: `https://v0idl1ne.com/blog/${post.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: "V0IDL1NE",
+      url: "https://v0idl1ne.com",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://v0idl1ne.com/blog/${post.slug}`,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <header style={s.header}>
         <Logo />
         <Link href="/" style={s.backBtn}>← BACK TO V0IDL1NE</Link>

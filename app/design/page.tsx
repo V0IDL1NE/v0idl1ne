@@ -320,7 +320,7 @@ export default function DesignPage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "'Share Tech Mono', monospace",
+          fontFamily: "var(--font-mono)",
         }}
       >
         <form onSubmit={handleAuth} style={{ display: "flex", flexDirection: "column", gap: "16px", width: "320px" }}>
@@ -335,7 +335,7 @@ export default function DesignPage() {
               background: "#0a0a0a",
               border: `1px solid ${authError ? "#ff0088" : "#1a1a1a"}`,
               color: "#c0c0c0",
-              fontFamily: "'Share Tech Mono', monospace",
+              fontFamily: "var(--font-mono)",
               fontSize: "14px",
               padding: "12px 16px",
               outline: "none",
@@ -350,7 +350,7 @@ export default function DesignPage() {
               background: "linear-gradient(45deg, #8800ff, #ff0088)",
               border: "none",
               color: "#000",
-              fontFamily: "'Share Tech Mono', monospace",
+              fontFamily: "var(--font-mono)",
               fontSize: "12px",
               fontWeight: "bold",
               letterSpacing: "0.2em",
@@ -370,7 +370,7 @@ export default function DesignPage() {
   const canvasHeight = Math.max(CANVAS_H, contentBottom + 40);
 
   return (
-    <div style={{ display: "flex", height: "100vh", background: "#050505", fontFamily: "'Share Tech Mono', monospace" }}>
+    <div style={{ display: "flex", height: "100vh", background: "#050505", fontFamily: "var(--font-mono)" }}>
       {/* Toolbar */}
       <div style={{ width: "220px", flexShrink: 0, borderRight: "1px solid #1a1a1a", padding: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem", overflowY: "auto" }}>
         <div style={{ color: "#8800ff", fontSize: "0.65rem", letterSpacing: "0.15em", marginBottom: "0.5rem" }}>IMPORT PAGE</div>
@@ -549,7 +549,7 @@ const inputStyle: React.CSSProperties = {
   background: "#0a0a0a",
   border: "1px solid #1a1a1a",
   color: "#c0c0c0",
-  fontFamily: "'Share Tech Mono', monospace",
+  fontFamily: "var(--font-mono)",
   fontSize: "0.8rem",
   padding: "0.4rem 0.5rem",
   outline: "none",
@@ -574,7 +574,7 @@ function ToolButton({ label, onClick, danger }: { label: string; onClick: () => 
         background: danger ? "rgba(255,0,136,0.1)" : "#0a0a0a",
         border: `1px solid ${danger ? "#ff0088" : "#1a1a1a"}`,
         color: danger ? "#ff0088" : "#c0c0c0",
-        fontFamily: "'Share Tech Mono', monospace",
+        fontFamily: "var(--font-mono)",
         fontSize: "0.75rem",
         padding: "0.5rem 0.7rem",
         textAlign: "left",

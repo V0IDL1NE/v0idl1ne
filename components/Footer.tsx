@@ -14,7 +14,7 @@ export default function Footer() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.6rem" }}>
         <div
           style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
+            fontFamily: "var(--font-condensed)",
             fontSize: "1rem",
             fontWeight: 900,
             letterSpacing: "0.2em",
@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
         <div
           style={{
-            fontFamily: "'Share Tech Mono', monospace",
+            fontFamily: "var(--font-mono)",
             fontSize: "0.58rem",
             color: "#332844",
             letterSpacing: "0.15em",
@@ -36,7 +36,7 @@ export default function Footer() {
       </div>
       <div
         style={{
-          fontFamily: "'Share Tech Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: "0.58rem",
           color: "#2a2038",
           letterSpacing: "0.08em",

@@ -90,7 +90,7 @@ export default function ChatPanel({
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        fontFamily: "'Share Tech Mono', monospace",
+        fontFamily: "var(--font-mono)",
       }}
     >
       <div
@@ -153,7 +153,7 @@ export default function ChatPanel({
             background: "#0a0a0a",
             border: "1px solid #1a1a1a",
             color: "#c0c0c0",
-            fontFamily: "'Share Tech Mono', monospace",
+            fontFamily: "var(--font-mono)",
             fontSize: "0.8rem",
             padding: "0.5rem 0.7rem",
             outline: "none",
@@ -166,7 +166,7 @@ export default function ChatPanel({
             background: "linear-gradient(45deg, #8800ff, #ff0088)",
             border: "none",
             color: "#000",
-            fontFamily: "'Share Tech Mono', monospace",
+            fontFamily: "var(--font-mono)",
             fontSize: "0.7rem",
             fontWeight: "bold",
             letterSpacing: "0.1em",

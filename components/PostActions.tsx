@@ -6,7 +6,7 @@ import { sendContact, honeypotStyle } from "@/lib/contact";
 type ModalType = "submit" | "report" | null;
 
 const btn: React.CSSProperties = {
-  fontFamily: "'Share Tech Mono', monospace",
+  fontFamily: "var(--font-mono)",
   fontSize: "0.62rem",
   letterSpacing: "0.15em",
   padding: "0.5rem 1rem",
@@ -93,7 +93,7 @@ function Modal({ type, onClose, postTitle, postSlug }: { type: ModalType; onClos
             <textarea name="message" className="modal-textarea" placeholder="Describe the inaccuracy or what needs to be corrected..." required />
             <label className="modal-label">YOUR SOURCE (optional)</label>
             <input name="source" className="modal-input" type="text" placeholder="Link or reference supporting your correction" />
-            {error && <div style={{ color: "#ff6644", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.65rem", marginTop: "0.8rem" }}>{error}</div>}
+            {error && <div style={{ color: "#ff6644", fontFamily: "var(--font-mono)", fontSize: "0.65rem", marginTop: "0.8rem" }}>{error}</div>}
             <div className="modal-actions">
               <button type="submit" className="modal-submit" disabled={sending}>{sending ? "SENDING..." : "SUBMIT FLAG"}</button>
               <button type="button" className="modal-cancel" onClick={onClose}>CANCEL</button>
@@ -115,7 +115,7 @@ function Modal({ type, onClose, postTitle, postSlug }: { type: ModalType; onClos
             <textarea name="info" className="modal-textarea" style={{ minHeight: 130 }} placeholder="Write it out. Be specific. Include why most people don't know this." required />
             <label className="modal-label">YOUR SOURCE (optional)</label>
             <input name="source" className="modal-input" type="text" placeholder="Link, code, law number, anything that backs it up" />
-            {error && <div style={{ color: "#ff6644", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.65rem", marginTop: "0.8rem" }}>{error}</div>}
+            {error && <div style={{ color: "#ff6644", fontFamily: "var(--font-mono)", fontSize: "0.65rem", marginTop: "0.8rem" }}>{error}</div>}
             <div className="modal-actions">
               <button type="submit" className="modal-submit" disabled={sending}>{sending ? "SENDING..." : "SUBMIT"}</button>
               <button type="button" className="modal-cancel" onClick={onClose}>CANCEL</button>

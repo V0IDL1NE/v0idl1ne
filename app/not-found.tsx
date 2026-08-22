@@ -66,7 +66,7 @@ export default function NotFound() {
 
       <div
         style={{
-          fontFamily: "'Barlow Condensed', sans-serif",
+          fontFamily: "var(--font-condensed)",
           fontSize: "6rem",
           fontWeight: 900,
           letterSpacing: "0.2em",
@@ -82,7 +82,7 @@ export default function NotFound() {
 
       <div
         style={{
-          fontFamily: "'Share Tech Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: "0.7rem",
           color: "#6a5f80",
           letterSpacing: "0.35em",
@@ -94,7 +94,7 @@ export default function NotFound() {
 
       <p
         style={{
-          fontFamily: "'Share Tech Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: "0.75rem",
           color: "#4a4060",
           letterSpacing: "0.05em",
@@ -109,7 +109,7 @@ export default function NotFound() {
       <Link
         href="/"
         style={{
-          fontFamily: "'Share Tech Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: "0.65rem",
           letterSpacing: "0.15em",
           padding: "0.7rem 1.4rem",
