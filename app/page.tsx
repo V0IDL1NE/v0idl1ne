@@ -155,13 +155,13 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
 /* ── Styles ── */
 const s = {
   /* nav */
-  navLogo: { display: "flex", alignItems: "center", gap: 10, cursor: "pointer" as const },
+  navLogo: { display: "flex", alignItems: "center", gap: 10, cursor: "pointer" as const, flexShrink: 0 },
   navName: {
     fontFamily: "'Barlow Condensed', sans-serif",
     fontSize: "1.2rem", fontWeight: 900, letterSpacing: "0.15em",
     color: "#fff", textShadow: "0 0 20px #8800ff",
   },
-  navLinks: { display: "flex", gap: "1.5rem" },
+  navLinks: { display: "flex", gap: "1.5rem", overflowX: "auto" as const, flexWrap: "nowrap" as const, minWidth: 0 },
   navLink: {
     fontFamily: "'Share Tech Mono', monospace",
     fontSize: "0.65rem", color: "#6a5f80",
@@ -173,7 +173,7 @@ const s = {
   splashLogo: { display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "1.5rem", zIndex: 1 },
   splashName: {
     fontFamily: "'Barlow Condensed', sans-serif",
-    fontSize: "5rem", fontWeight: 900, letterSpacing: "0.2em",
+    fontSize: "clamp(2.2rem, 11vw, 5rem)", fontWeight: 900, letterSpacing: "0.2em",
     color: "#fff", textShadow: "0 0 60px rgba(136,0,255,0.8), 0 0 120px rgba(136,0,255,0.3)",
     lineHeight: 1,
   },
@@ -186,7 +186,6 @@ const s = {
     padding: "1rem 2rem", borderBottom: "1px solid rgba(136,0,255,0.1)",
     display: "flex", gap: "0.5rem", flexWrap: "wrap" as const, background: "#000",
   },
-  grid: { display: "grid", gridTemplateColumns: "2fr 1fr" },
   mainCol: { borderRight: "1px solid rgba(136,0,255,0.1)", padding: "2rem" },
   sideCol: { padding: "1.5rem" },
   featured: {
@@ -286,7 +285,7 @@ export default function Home() {
           <Triangle size={24} />
           <div style={s.navName}>V<span style={{ color: "#aa44ff" }}>0</span>IDL<span style={{ color: "#aa44ff" }}>1</span>NE</div>
         </div>
-        <div style={s.navLinks}>
+        <div className="nav-links-scroll" style={s.navLinks}>
           {categories.slice(1).map(cat => (
             <button key={cat} style={s.navLink} onClick={() => filterCat(cat)}
               onMouseEnter={e => (e.currentTarget.style.color = "#aa44ff")}
@@ -353,8 +352,8 @@ export default function Home() {
         )}
 
         {/* grid */}
-        <div style={s.grid}>
-          <div style={s.mainCol}>
+        <div className="content-grid">
+          <div className="content-main" style={s.mainCol}>
             {isSearching ? (
               <>
                 <div style={s.searchLabel}>
