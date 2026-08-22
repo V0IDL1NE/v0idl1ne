@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { posts, categories } from "@/lib/posts";
 import Footer from "@/components/Footer";
 import { sendContact, honeypotStyle } from "@/lib/contact";
+import { searchPosts } from "@/lib/search";
 
 /* ── Inline SVG triangle (reused in splash + nav) ── */
 function Triangle({ size }: { size: number }) {
@@ -232,12 +233,25 @@ const s = {
   },
   submitLabel: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#8800ff", letterSpacing: "0.25em", marginBottom: "0.5rem" },
   submitDesc: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.62rem", color: "#4a4060", lineHeight: 1.5 },
+  searchWrap: { padding: "1.2rem 2rem 0", background: "#000", display: "flex", alignItems: "center", gap: "1rem" },
+  searchInput: { width: "100%", maxWidth: 420 },
+  searchClear: {
+    fontFamily: "'Share Tech Mono', monospace", fontSize: "0.62rem",
+    color: "#440088", letterSpacing: "0.1em", cursor: "pointer" as const,
+    background: "none", border: "none", padding: 0, whiteSpace: "nowrap" as const,
+  },
+  searchLabel: {
+    fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#440088",
+    letterSpacing: "0.2em", marginBottom: "1.5rem",
+  },
+  searchEmpty: { fontFamily: "'Share Tech Mono', monospace", fontSize: "0.75rem", color: "#4a4060" },
 };
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [navVisible, setNavVisible] = useState(false);
   const [modal, setModal] = useState<ModalType>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const splashRef = useRef<HTMLDivElement>(null);
 
   const featured = posts[0];
@@ -245,6 +259,9 @@ export default function Home() {
   const filtered = activeCategory === "ALL" ? rest : rest.filter(p => p.category === activeCategory);
   const recentSide = posts.slice(0, 3);
   const catCounts = categories.slice(1).map(cat => ({ cat, count: posts.filter(p => p.category === cat).length }));
+
+  const isSearching = searchQuery.trim().length > 0;
+  const searchResults = useMemo(() => searchPosts(posts, searchQuery), [searchQuery]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -257,6 +274,7 @@ export default function Home() {
 
   function filterCat(cat: string) {
     setActiveCategory(cat);
+    setSearchQuery("");
     document.getElementById("content")?.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -301,55 +319,96 @@ export default function Home() {
 
       {/* CONTENT */}
       <div id="content">
-        {/* category filter */}
-        <div style={s.cats}>
-          {categories.map(cat => (
-            <div key={cat} onClick={() => setActiveCategory(cat)} style={{
-              fontFamily: "'Share Tech Mono', monospace",
-              fontSize: "0.65rem", letterSpacing: "0.15em",
-              padding: "0.3rem 0.8rem",
-              border: `1px solid ${activeCategory === cat ? "#8800ff" : "rgba(136,0,255,0.2)"}`,
-              color: activeCategory === cat ? "#aa44ff" : "#6a5f80",
-              cursor: "pointer",
-              background: activeCategory === cat ? "rgba(136,0,255,0.05)" : "transparent",
-              transition: "all 0.2s",
-            }}>{cat}</div>
-          ))}
+        {/* search */}
+        <div style={s.searchWrap}>
+          <input
+            type="text"
+            className="modal-input"
+            style={s.searchInput}
+            placeholder="SEARCH ALL POSTS..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+          />
+          {isSearching && (
+            <button style={s.searchClear} onClick={() => setSearchQuery("")}>[ CLEAR ]</button>
+          )}
         </div>
+
+        {/* category filter */}
+        {!isSearching && (
+          <div style={s.cats}>
+            {categories.map(cat => (
+              <div key={cat} onClick={() => { setActiveCategory(cat); setSearchQuery(""); }} style={{
+                fontFamily: "'Share Tech Mono', monospace",
+                fontSize: "0.65rem", letterSpacing: "0.15em",
+                padding: "0.3rem 0.8rem",
+                border: `1px solid ${activeCategory === cat ? "#8800ff" : "rgba(136,0,255,0.2)"}`,
+                color: activeCategory === cat ? "#aa44ff" : "#6a5f80",
+                cursor: "pointer",
+                background: activeCategory === cat ? "rgba(136,0,255,0.05)" : "transparent",
+                transition: "all 0.2s",
+              }}>{cat}</div>
+            ))}
+          </div>
+        )}
 
         {/* grid */}
         <div style={s.grid}>
           <div style={s.mainCol}>
-            {/* featured */}
-            {(activeCategory === "ALL" || activeCategory === featured.category) && (
-              <Link href={`/blog/${featured.slug}`} style={s.featured}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "#8800ff")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(136,0,255,0.25)")}
-              >
-                <div style={s.featInner}>
-                  <div style={s.featTag}>// {featured.category}</div>
-                  <div style={s.featTitle}>{featured.title}</div>
-                  <p style={s.featExcerpt}>{featured.excerpt}</p>
-                  <div style={s.featMeta}>
-                    <span>{featured.readTime}</span>
-                    {featured.tags.map(t => <span key={t}>{t}</span>)}
-                    <span>{featured.difficulty}</span>
-                  </div>
+            {isSearching ? (
+              <>
+                <div style={s.searchLabel}>
+                  // {searchResults.length} RESULT{searchResults.length !== 1 ? "S" : ""} FOR &quot;{searchQuery.trim()}&quot;
                 </div>
-              </Link>
-            )}
+                {searchResults.length === 0 ? (
+                  <p style={s.searchEmpty}>Nothing matched that. Try different words.</p>
+                ) : (
+                  searchResults.map(post => (
+                    <Link key={post.slug} href={`/blog/${post.slug}`} style={s.postItem}
+                      onMouseEnter={e => { (e.currentTarget.querySelector(".pt") as HTMLElement).style.color = "#aa44ff"; }}
+                      onMouseLeave={e => { (e.currentTarget.querySelector(".pt") as HTMLElement).style.color = "#e0d8f0"; }}
+                    >
+                      <div style={s.postCat}>// {post.category}</div>
+                      <div className="pt" style={s.postTitle}>{post.title}</div>
+                      <p style={s.postExcerpt}>{post.excerpt}</p>
+                    </Link>
+                  ))
+                )}
+              </>
+            ) : (
+              <>
+                {/* featured */}
+                {(activeCategory === "ALL" || activeCategory === featured.category) && (
+                  <Link href={`/blog/${featured.slug}`} style={s.featured}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = "#8800ff")}
+                    onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(136,0,255,0.25)")}
+                  >
+                    <div style={s.featInner}>
+                      <div style={s.featTag}>// {featured.category}</div>
+                      <div style={s.featTitle}>{featured.title}</div>
+                      <p style={s.featExcerpt}>{featured.excerpt}</p>
+                      <div style={s.featMeta}>
+                        <span>{featured.readTime}</span>
+                        {featured.tags.map(t => <span key={t}>{t}</span>)}
+                        <span>{featured.difficulty}</span>
+                      </div>
+                    </div>
+                  </Link>
+                )}
 
-            {/* post list */}
-            {filtered.map(post => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} style={s.postItem}
-                onMouseEnter={e => { (e.currentTarget.querySelector(".pt") as HTMLElement).style.color = "#aa44ff"; }}
-                onMouseLeave={e => { (e.currentTarget.querySelector(".pt") as HTMLElement).style.color = "#e0d8f0"; }}
-              >
-                <div style={s.postCat}>// {post.category}</div>
-                <div className="pt" style={s.postTitle}>{post.title}</div>
-                <p style={s.postExcerpt}>{post.excerpt}</p>
-              </Link>
-            ))}
+                {/* post list */}
+                {filtered.map(post => (
+                  <Link key={post.slug} href={`/blog/${post.slug}`} style={s.postItem}
+                    onMouseEnter={e => { (e.currentTarget.querySelector(".pt") as HTMLElement).style.color = "#aa44ff"; }}
+                    onMouseLeave={e => { (e.currentTarget.querySelector(".pt") as HTMLElement).style.color = "#e0d8f0"; }}
+                  >
+                    <div style={s.postCat}>// {post.category}</div>
+                    <div className="pt" style={s.postTitle}>{post.title}</div>
+                    <p style={s.postExcerpt}>{post.excerpt}</p>
+                  </Link>
+                ))}
+              </>
+            )}
           </div>
 
           {/* sidebar */}
@@ -386,7 +445,7 @@ export default function Home() {
             <div style={s.sideSection}>
               <div style={s.sideLabel}>// CATEGORIES</div>
               {catCounts.map(({ cat, count }) => (
-                <div key={cat} style={{ ...s.sideItem, cursor: "pointer" }} onClick={() => setActiveCategory(cat)}
+                <div key={cat} style={{ ...s.sideItem, cursor: "pointer" }} onClick={() => { setActiveCategory(cat); setSearchQuery(""); }}
                   onMouseEnter={e => { (e.currentTarget.querySelector(".st2") as HTMLElement).style.color = "#aa44ff"; }}
                   onMouseLeave={e => { (e.currentTarget.querySelector(".st2") as HTMLElement).style.color = "#c8bedd"; }}
                 >
