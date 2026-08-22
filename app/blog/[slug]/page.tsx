@@ -1,15 +1,39 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts } from "@/lib/posts";
 import Logo from "@/components/Logo";
 import PostActions from "@/components/PostActions";
 import Footer from "@/components/Footer";
+import RelatedPosts from "@/components/RelatedPosts";
 
 export function generateStaticParams() {
   return posts.map(p => ({ slug: p.slug }));
 }
 
 export const dynamicParams = false;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find(p => p.slug === slug);
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `/blog/${post.slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
+  };
+}
 
 const s = {
   header: {
@@ -82,7 +106,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="pv-body">
           <Content />
         </div>
-        <PostActions />
+        <PostActions postTitle={post.title} postSlug={post.slug} />
+        <RelatedPosts slug={post.slug} />
       </article>
 
       <div style={s.footerWrap}>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { posts, categories } from "@/lib/posts";
 import Footer from "@/components/Footer";
+import { sendContact, honeypotStyle } from "@/lib/contact";
 
 /* ── Inline SVG triangle (reused in splash + nav) ── */
 function Triangle({ size }: { size: number }) {
@@ -24,9 +25,18 @@ type ModalType = "submit" | "report" | null;
 function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [reportSuccess, setReportSuccess] = useState(false);
+  const [submitSending, setSubmitSending] = useState(false);
+  const [reportSending, setReportSending] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [reportError, setReportError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!open) { setSubmitSuccess(false); setReportSuccess(false); }
+    if (!open) {
+      setSubmitSuccess(false);
+      setReportSuccess(false);
+      setSubmitError(null);
+      setReportError(null);
+    }
   }, [open]);
 
   useEffect(() => {
@@ -37,14 +47,38 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
     return () => document.removeEventListener("click", handler);
   }, [onClose]);
 
-  function submitReport(e: React.FormEvent<HTMLFormElement>) {
+  async function submitReport(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setReportSuccess(true);
+    const form = new FormData(e.currentTarget);
+    setReportError(null);
+    setReportSending(true);
+    const result = await sendContact({
+      kind: "report",
+      message: String(form.get("message") || ""),
+      source: String(form.get("source") || ""),
+      website: String(form.get("website") || ""),
+    });
+    setReportSending(false);
+    if (result.ok) setReportSuccess(true);
+    else setReportError(result.error || "Something went wrong — try again.");
   }
 
-  function submitInfo(e: React.FormEvent<HTMLFormElement>) {
+  async function submitInfo(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitSuccess(true);
+    const form = new FormData(e.currentTarget);
+    setSubmitError(null);
+    setSubmitSending(true);
+    const result = await sendContact({
+      kind: "submit",
+      category: String(form.get("category") || ""),
+      title: String(form.get("title") || ""),
+      info: String(form.get("info") || ""),
+      source: String(form.get("source") || ""),
+      website: String(form.get("website") || ""),
+    });
+    setSubmitSending(false);
+    if (result.ok) setSubmitSuccess(true);
+    else setSubmitError(result.error || "Something went wrong — try again.");
   }
 
   return (
@@ -56,18 +90,20 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
           {reportSuccess ? (
             <div className="modal-success">
               <div className="modal-success-icon">▽</div>
-              <div className="modal-success-text">FLAG RECEIVED<br /><br />This post has been flagged for review.<br />Once email is connected it'll land in the queue.</div>
+              <div className="modal-success-text">FLAG RECEIVED<br /><br />This post has been flagged for review.</div>
             </div>
           ) : (
             <form onSubmit={submitReport}>
               <div className="modal-title">Report Inaccuracy</div>
               <div className="modal-sub">// FLAG THIS POST FOR REVIEW</div>
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" style={honeypotStyle} aria-hidden="true" />
               <label className="modal-label">WHAT'S WRONG</label>
-              <textarea className="modal-textarea" placeholder="Describe the inaccuracy or what needs to be corrected..." required />
+              <textarea name="message" className="modal-textarea" placeholder="Describe the inaccuracy or what needs to be corrected..." required />
               <label className="modal-label">YOUR SOURCE (optional)</label>
-              <input className="modal-input" type="text" placeholder="Link or reference supporting your correction" />
+              <input name="source" className="modal-input" type="text" placeholder="Link or reference supporting your correction" />
+              {reportError && <div style={{ color: "#ff6644", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.65rem", marginTop: "0.8rem" }}>{reportError}</div>}
               <div className="modal-actions">
-                <button type="submit" className="modal-submit">SUBMIT FLAG</button>
+                <button type="submit" className="modal-submit" disabled={reportSending}>{reportSending ? "SENDING..." : "SUBMIT FLAG"}</button>
                 <button type="button" className="modal-cancel" onClick={onClose}>CANCEL</button>
               </div>
             </form>
@@ -82,27 +118,29 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
           {submitSuccess ? (
             <div className="modal-success">
               <div className="modal-success-icon">▽</div>
-              <div className="modal-success-text">SUBMISSION RECEIVED<br /><br />If it checks out it gets published.<br />Once email is connected it'll land in the queue.</div>
+              <div className="modal-success-text">SUBMISSION RECEIVED<br /><br />If it checks out it gets published.</div>
             </div>
           ) : (
             <form onSubmit={submitInfo}>
               <div className="modal-title">Submit Information</div>
               <div className="modal-sub">// KNOWLEDGE THEY FORGOT TO GIVE YOU</div>
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" style={honeypotStyle} aria-hidden="true" />
               <label className="modal-label">CATEGORY</label>
-              <select className="modal-select" defaultValue="">
+              <select name="category" className="modal-select" defaultValue="">
                 <option value="" disabled>SELECT A CATEGORY</option>
                 {["ELECTRICAL","LEGAL","HEALTH","HOME","FINANCE","AUTO","TECH","CONSUMER","OTHER"].map(c => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
               <label className="modal-label">TITLE / TOPIC</label>
-              <input className="modal-input" type="text" placeholder="What's the knowledge?" required />
+              <input name="title" className="modal-input" type="text" placeholder="What's the knowledge?" required />
               <label className="modal-label">THE INFORMATION</label>
-              <textarea className="modal-textarea" style={{ minHeight: 130 }} placeholder="Write it out. Be specific. Include why most people don't know this." required />
+              <textarea name="info" className="modal-textarea" style={{ minHeight: 130 }} placeholder="Write it out. Be specific. Include why most people don't know this." required />
               <label className="modal-label">YOUR SOURCE (optional)</label>
-              <input className="modal-input" type="text" placeholder="Link, code, law number, anything that backs it up" />
+              <input name="source" className="modal-input" type="text" placeholder="Link, code, law number, anything that backs it up" />
+              {submitError && <div style={{ color: "#ff6644", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.65rem", marginTop: "0.8rem" }}>{submitError}</div>}
               <div className="modal-actions">
-                <button type="submit" className="modal-submit">SUBMIT</button>
+                <button type="submit" className="modal-submit" disabled={submitSending}>{submitSending ? "SENDING..." : "SUBMIT"}</button>
                 <button type="button" className="modal-cancel" onClick={onClose}>CANCEL</button>
               </div>
             </form>
