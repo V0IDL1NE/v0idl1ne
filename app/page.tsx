@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { posts, categories } from "@/lib/posts";
 import Footer from "@/components/Footer";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { sendContact, honeypotStyle } from "@/lib/contact";
 import { searchPosts } from "@/lib/search";
 
@@ -418,6 +419,8 @@ export default function Home() {
                 This is not advice. This is <span style={{ color: "#8800ff" }}>information</span>. What you do with it is yours. No credentials, no agenda — just the stuff that should already be public knowledge.
               </p>
             </div>
+
+            <NewsletterSignup />
 
             {/* submit block */}
             <div style={s.submitBlock} onClick={() => setModal("submit")}
