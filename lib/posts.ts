@@ -465,3 +465,11 @@ export const posts: Post[] = [
 ];
 
 export const categories = ["ALL", "ELECTRICAL", "LEGAL", "HEALTH", "HOME", "FINANCE", "AUTO", "TECH", "CONSUMER"];
+
+export function categorySlug(category: string): string {
+  return category.toLowerCase();
+}
+
+export function categoryFromSlug(slug: string): string | undefined {
+  return categories.slice(1).find(c => categorySlug(c) === slug);
+}

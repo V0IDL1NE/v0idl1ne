@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     template: "%s — V0IDL1NE",
   },
   description: SITE_DESCRIPTION,
+  alternates: {
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
+  },
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,

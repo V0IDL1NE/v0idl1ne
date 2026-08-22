@@ -47,6 +47,10 @@ export default function Footer() {
         <Link href="/disclaimer" style={{ color: "#4a4060", textDecoration: "underline", textUnderlineOffset: "2px" }}>
           FULL DISCLAIMER
         </Link>
+        {" "}—{" "}
+        <a href="/rss.xml" style={{ color: "#4a4060", textDecoration: "underline", textUnderlineOffset: "2px" }}>
+          RSS
+        </a>
       </div>
     </footer>
   );

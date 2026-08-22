@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { posts } from "@/lib/posts";
+import { posts, categorySlug } from "@/lib/posts";
 import Logo from "@/components/Logo";
 import PostActions from "@/components/PostActions";
 import Footer from "@/components/Footer";
@@ -61,6 +61,8 @@ const s = {
     color: "#8800ff",
     letterSpacing: "0.3em",
     marginBottom: "1rem",
+    textDecoration: "none",
+    display: "inline-block",
   },
   title: {
     fontFamily: "var(--font-condensed)",
@@ -121,7 +123,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </header>
 
       <article style={s.article}>
-        <div style={s.cat}>// {post.category}</div>
+        <Link href={`/category/${categorySlug(post.category)}`} style={s.cat}>// {post.category}</Link>
         <h1 style={s.title}>{post.title}</h1>
         <div style={s.meta}>
           {post.readTime} — {post.tags.join(" — ")} — {post.difficulty}
