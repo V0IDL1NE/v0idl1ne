@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ChatPanel from "./ChatPanel";
+import { accessHeaders } from "@/lib/accessKey";
 
 type ElementType = "text" | "image" | "rect" | "circle";
 
@@ -68,7 +69,12 @@ export default function DesignPage() {
   }, [elements]);
 
   async function loadElements() {
-    const res = await fetch(`/api/crypt-data?key=${DESIGN_KEY}`);
+    const res = await fetch(`/api/crypt-data?key=${DESIGN_KEY}`, { headers: accessHeaders(savedPassword.current) });
+    if (!res.ok) {
+      setAuthed(false);
+      setAuthError(true);
+      return;
+    }
     const data = await res.json();
     setElements(data.value ?? []);
   }
@@ -194,7 +200,7 @@ export default function DesignPage() {
   function saveElements(next: Element[]) {
     fetch("/api/crypt-data", {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...accessHeaders(savedPassword.current) },
       body: JSON.stringify({ key: DESIGN_KEY, value: next }),
     }).catch(() => {});
   }

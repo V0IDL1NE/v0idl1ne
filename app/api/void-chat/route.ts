@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest } from 'next/server'
+import { checkAccess } from '@/lib/voidAuth'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -108,9 +109,8 @@ When you make changes: read first, edit minimally, commit with a clear message. 
 export async function POST(req: NextRequest) {
   const { messages, password } = await req.json()
 
-  if (password !== process.env.VOID_PASSWORD) {
-    return new Response('Unauthorized', { status: 401 })
-  }
+  const denied = checkAccess(req, password)
+  if (denied) return denied
 
   const encoder = new TextEncoder()
 

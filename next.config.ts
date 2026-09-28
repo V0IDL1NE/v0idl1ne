@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
   experimental: {
     viewTransition: true,
   },
+  // Private pages: keep them out of search results even if someone links to them.
+  async headers() {
+    return ["/test/:path*", "/test", "/design", "/v0id", "/crypt"].map(source => ({
+      source,
+      headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+    }));
+  },
 };
 
 const withMDX = createMDX({

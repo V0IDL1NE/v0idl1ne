@@ -4,6 +4,7 @@ import { ViewTransition } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { sections } from "./sections";
+import AccessGate from "@/components/AccessGate";
 
 export default function TestLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -94,7 +95,7 @@ export default function TestLayout({ children }: { children: React.ReactNode }) 
         </nav>
 
         <ViewTransition name="section-page" enter="page-flip" exit="page-flip" default="none" key={activeSection}>
-          <div style={{ marginTop: "2.5rem" }}>{children}</div>
+          <div style={{ marginTop: "2.5rem" }}><AccessGate>{children}</AccessGate></div>
         </ViewTransition>
       </div>
     </main>

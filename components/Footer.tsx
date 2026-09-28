@@ -48,6 +48,14 @@ export default function Footer() {
           FULL DISCLAIMER
         </Link>
         {" "}—{" "}
+        <Link href="/about" style={{ color: "#4a4060", textDecoration: "underline", textUnderlineOffset: "2px" }}>
+          ABOUT
+        </Link>
+        {" "}—{" "}
+        <Link href="/privacy" style={{ color: "#4a4060", textDecoration: "underline", textUnderlineOffset: "2px" }}>
+          PRIVACY
+        </Link>
+        {" "}—{" "}
         <a href="/rss.xml" style={{ color: "#4a4060", textDecoration: "underline", textUnderlineOffset: "2px" }}>
           RSS
         </a>
