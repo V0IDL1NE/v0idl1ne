@@ -464,6 +464,66 @@ export const posts: Post[] = [
   },
 ];
 
+/*
+ * Search-engine titles. The on-page headline stays the punchy one above; this is what goes in
+ * <title> so the page matches how people actually phrase the question in Google.
+ */
+const seoTitles: Record<string, string> = {
+  "hot-neutral-ground": "Hot, Neutral, and Ground Wires: How to Tell Them Apart",
+  "right-to-remain-silent": "Do You Have to Answer Police Questions? Your Right to Stay Silent",
+  "er-vs-urgent-care": "ER vs Urgent Care vs Your Doctor: Where to Go and What It Costs",
+  "landlord-rights": "What Landlords Can't Legally Do: Tenant Rights Explained",
+  "how-interest-works": "How Credit Card Interest Works: APR, APY, and the Minimum Payment Trap",
+  "breaker-box-basics": "Breaker Box Basics: Why Breakers Trip and What You Can Fix Yourself",
+  "gfci-afci-outlets": "GFCI vs AFCI: What's the Difference and Where They're Required",
+  "extension-cord-gauge": "Extension Cord Gauge Explained: When a Cord Becomes a Fire Hazard",
+  "outlet-replacement": "How to Replace an Electrical Outlet, Step by Step",
+  "smoke-co-detector-placement": "Where to Put Smoke and Carbon Monoxide Detectors",
+  "recording-police": "Is It Legal to Record the Police? Your Rights Explained",
+  "small-claims-court": "How to File in Small Claims Court Without a Lawyer",
+  "probable-cause": "What Is Probable Cause? Probable Cause vs Reasonable Suspicion",
+  "non-compete-agreements": "Are Non-Compete Agreements Enforceable? What Courts Look At",
+  "generic-vs-brand-drugs": "Are Generic Drugs as Good as Brand Name? What the FDA Requires",
+  "insurance-terms-decoded": "Deductible vs Copay vs Out-of-Pocket Max, Explained",
+  "prescription-cash-prices": "Why Paying Cash for Prescriptions Can Beat Your Insurance Copay",
+  "reading-lab-results": "How to Read Your Blood Test Results: CBC, CMP, Lipids, A1C",
+  "water-shutoff-locations": "How to Find Your Main Water Shutoff Valve (and Every Other One)",
+  "lease-clauses": "Lease Clauses to Watch Out For Before You Sign",
+  "mold-habitability": "Mold in Your Rental: What Your Landlord Is Required to Do",
+  "renters-insurance": "What Does Renters Insurance Cover and How Much Does It Cost?",
+  "credit-score-factors": "What Affects Your Credit Score: The 5 Factors and Their Weights",
+  "medical-bill-negotiation": "How to Negotiate a Hospital Bill and Lower What You Owe",
+  "401k-employer-match": "How a 401(k) Employer Match and Vesting Actually Work",
+  "pay-stub-decoded": "How to Read Your Pay Stub: Every Line Explained",
+  "salary-negotiation": "How to Negotiate Your Salary: What to Say and When",
+  "emergency-fund-basics": "How Much Should Be in Your Emergency Fund, and Where to Keep It",
+  "credit-freeze-vs-lock": "Credit Freeze vs Credit Lock: Which One to Use and How to Freeze",
+  "surge-protector-vs-power-strip": "Surge Protector vs Power Strip: What's the Difference?",
+  "amperage-vs-wattage": "Amps, Volts, and Watts: How Much Can a Circuit Handle?",
+  "miranda-rights-when": "When Do Police Have to Read You Your Miranda Rights?",
+  "statute-of-limitations-basics": "Statute of Limitations on Debt: How Paying Can Restart the Clock",
+  "epipen-cost-alternatives": "Cheaper EpiPen Alternatives: Generic Epinephrine Auto-Injectors",
+  "telehealth-vs-urgent-care": "Telehealth vs Urgent Care: When a Video Visit Is Enough",
+  "space-heater-safety": "Space Heater Safety Rules That Prevent House Fires",
+  "home-inventory-for-insurance": "How to Make a Home Inventory for Insurance Claims",
+  "tire-tread-penny-test": "Tire Tread Depth: Penny Test vs Quarter Test and When to Replace",
+  "check-engine-light-codes": "Check Engine Light On? How to Get the Code Read for Free",
+  "extended-warranties-scam": "Car Warranty Expiring Calls: How to Spot the Scam",
+  "lemon-law-basics": "Lemon Law Basics: Does Your Car Qualify?",
+  "password-manager-2fa": "Password Manager and Two-Factor Authentication: The 20-Minute Setup",
+  "phishing-red-flags": "How to Spot a Phishing Email or Text: The Red Flags",
+  "data-broker-opt-out": "How to Remove Your Personal Info From Data Broker Sites",
+  "public-wifi-vpn-myths": "Do You Need a VPN on Public Wi-Fi? What It Actually Protects",
+  "credit-card-chargebacks": "Credit Card vs Debit Card Disputes: Your Chargeback Rights",
+  "return-policy-tricks": "Do Stores Have to Accept Returns? What the Law Actually Says",
+  "warranty-vs-insurance": "Does Using Third-Party Parts or Repair Shops Void Your Warranty?",
+  "subscription-cancellation-rights": "Hard-to-Cancel Subscriptions: Your Rights and What Works",
+};
+
+export function seoTitle(post: Post): string {
+  return seoTitles[post.slug] ?? post.title;
+}
+
 export const categories = ["ALL", "ELECTRICAL", "LEGAL", "HEALTH", "HOME", "FINANCE", "AUTO", "TECH", "CONSUMER"];
 
 export function categorySlug(category: string): string {

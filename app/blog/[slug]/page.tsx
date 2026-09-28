@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { posts, categorySlug } from "@/lib/posts";
+import { posts, categorySlug, seoTitle } from "@/lib/posts";
+import { extrasForPost } from "@/lib/extras";
 import Logo from "@/components/Logo";
 import PostActions from "@/components/PostActions";
 import Footer from "@/components/Footer";
 import RelatedPosts from "@/components/RelatedPosts";
+import ShareBar from "@/components/ShareBar";
+import ExtrasLinks from "@/components/ExtrasLinks";
 
 export function generateStaticParams() {
   return posts.map(p => ({ slug: p.slug }));
@@ -19,8 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return {};
 
   return {
-    title: post.title,
+    title: seoTitle(post),
     description: post.excerpt,
+    alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -131,6 +135,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="pv-body">
           <Content />
         </div>
+        <ShareBar title={post.title} tip={post.excerpt} path={`/blog/${post.slug}`} />
+        <ExtrasLinks items={extrasForPost(post.slug)} label="// PUT THIS TO USE" />
         <PostActions postTitle={post.title} postSlug={post.slug} />
         <RelatedPosts slug={post.slug} />
       </article>

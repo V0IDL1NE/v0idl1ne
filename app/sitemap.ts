@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { posts, categories, categorySlug } from "@/lib/posts";
+import { allExtras } from "@/lib/extras";
 
 const SITE_URL = "https://v0idl1ne.com";
 
@@ -29,5 +30,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...postRoutes];
+  const hubRoutes: MetadataRoute.Sitemap = ["/tools", "/guides", "/printables"].map(path => ({
+    url: `${SITE_URL}${path}`,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  const extraRoutes: MetadataRoute.Sitemap = allExtras.map(extra => ({
+    url: `${SITE_URL}${extra.href}`,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...hubRoutes, ...extraRoutes, ...categoryRoutes, ...postRoutes];
 }

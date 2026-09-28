@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { sendContact, honeypotStyle } from "@/lib/contact";
 import { searchPosts } from "@/lib/search";
+import { tools, guides } from "@/lib/extras";
 
 /* ── Inline SVG triangle (reused in splash + nav) ── */
 function Triangle({ size }: { size: number }) {
@@ -245,6 +246,11 @@ const s = {
     letterSpacing: "0.2em", marginBottom: "1.5rem",
   },
   searchEmpty: { fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "#4a4060" },
+  extrasStrip: {
+    padding: "0.8rem 2rem", borderBottom: "1px solid rgba(136,0,255,0.1)",
+    display: "flex", gap: "0.5rem", flexWrap: "wrap" as const, alignItems: "center", background: "#000",
+  },
+  extrasStripLabel: { fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "#440088", letterSpacing: "0.2em", marginRight: "0.3rem" },
 };
 
 export default function Home() {
@@ -292,6 +298,12 @@ export default function Home() {
               onMouseEnter={e => (e.currentTarget.style.color = "#aa44ff")}
               onMouseLeave={e => (e.currentTarget.style.color = "#6a5f80")}
             >{cat}</button>
+          ))}
+          {[["TOOLS", "/tools"], ["GUIDES", "/guides"]].map(([label, href]) => (
+            <Link key={href} href={href} style={{ ...s.navLink, color: "#aa44ff" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+              onMouseLeave={e => (e.currentTarget.style.color = "#aa44ff")}
+            >{label}</Link>
           ))}
           <button style={{ ...s.navLink, color: "#8800ff" }} onClick={() => setModal("submit")}
             onMouseEnter={e => (e.currentTarget.style.color = "#aa44ff")}
@@ -349,6 +361,16 @@ export default function Home() {
                 transition: "all 0.2s",
               }}>{cat}</div>
             ))}
+          </div>
+        )}
+
+        {/* tools / guides strip — the sidebar sits below every post on phones, so surface these up top too */}
+        {!isSearching && (
+          <div style={s.extrasStrip}>
+            <span style={s.extrasStripLabel}>{"// PUT IT TO USE:"}</span>
+            <Link href="/tools" className="tool-btn small">TOOLS</Link>
+            <Link href="/guides" className="tool-btn small">SITUATION GUIDES</Link>
+            <Link href="/printables" className="tool-btn small">PRINTABLES</Link>
           </div>
         )}
 
@@ -418,6 +440,27 @@ export default function Home() {
               <p style={s.signalText}>
                 This is not advice. This is <span style={{ color: "#8800ff" }}>information</span>. What you do with it is yours. No credentials, no agenda — just the stuff that should already be public knowledge.
               </p>
+            </div>
+
+            {/* tools & guides */}
+            <div style={s.sideSection}>
+              <div style={s.sideLabel}>{"// TOOLS & GUIDES"}</div>
+              {[...tools, ...guides].map(extra => (
+                <Link key={extra.href} href={extra.href} style={s.sideItem}
+                  onMouseEnter={e => { (e.currentTarget.querySelector(".st") as HTMLElement).style.color = "#aa44ff"; }}
+                  onMouseLeave={e => { (e.currentTarget.querySelector(".st") as HTMLElement).style.color = "#c8bedd"; }}
+                >
+                  <div className="st" style={s.sideTitle}>{extra.title}</div>
+                  <div style={s.sideMeta}>{extra.kind}</div>
+                </Link>
+              ))}
+              <Link href="/printables" style={s.sideItem}
+                onMouseEnter={e => { (e.currentTarget.querySelector(".st") as HTMLElement).style.color = "#aa44ff"; }}
+                onMouseLeave={e => { (e.currentTarget.querySelector(".st") as HTMLElement).style.color = "#c8bedd"; }}
+              >
+                <div className="st" style={s.sideTitle}>Free printables</div>
+                <div style={s.sideMeta}>EMERGENCY SHEET — MOVE-IN CHECKLIST — RIGHTS CARD</div>
+              </Link>
             </div>
 
             <NewsletterSignup />
