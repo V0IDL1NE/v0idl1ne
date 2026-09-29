@@ -183,6 +183,61 @@ const sourceMap: Record<string, Source[]> = {
     { label: "FTC — Negative option (click-to-cancel) rule", url: "https://www.ftc.gov/legal-library/browse/rules/negative-option-rule" },
     { label: "FTC — Report fraud", url: "https://reportfraud.ftc.gov/" },
   ],
+
+  "got-scammed-what-now": [
+    { label: "FTC — What to do if you were scammed", url: "https://consumer.ftc.gov/articles/what-do-if-you-were-scammed" },
+    { label: "IdentityTheft.gov", url: "https://www.identitytheft.gov/" },
+    { label: "FBI Internet Crime Complaint Center (IC3)", url: "https://www.ic3.gov/" },
+  ],
+  "sim-swap-protection": [
+    { label: "FCC — SIM swapping and port-out fraud rules", url: "https://www.fcc.gov/consumer-governmental-affairs/fcc-announces-effective-date-sim-swapping-item" },
+    { label: "FTC — SIM swap scams", url: "https://consumer.ftc.gov/consumer-alerts/2019/10/sim-swap-scams-how-protect-yourself" },
+  ],
+  "back-up-your-phone": [
+    { label: "Apple — Back up your iPhone", url: "https://support.apple.com/en-us/108771" },
+    { label: "Google — Back up or restore data on your Android device", url: "https://support.google.com/android/answer/2819582" },
+    { label: "CISA — Multifactor authentication", url: "https://www.cisa.gov/MFA" },
+  ],
+  "jump-start-a-car": [
+    { label: "NHTSA — Vehicle safety and maintenance", url: "https://www.nhtsa.gov/vehicle-safety" },
+  ],
+  "after-a-car-accident": [
+    { label: "Insurance Information Institute — What to do at the scene of an accident", url: "https://www.iii.org/article/what-to-do-at-the-scene-of-an-accident" },
+    { label: "NHTSA — Vehicle safety", url: "https://www.nhtsa.gov/vehicle-safety" },
+  ],
+  "correct-tire-pressure": [
+    { label: "NHTSA — Tire safety", url: "https://www.nhtsa.gov/equipment/tires" },
+  ],
+  "dispute-credit-report-errors": [
+    { label: "FTC — Disputing errors on your credit reports", url: "https://consumer.ftc.gov/articles/disputing-errors-your-credit-reports" },
+    { label: "FTC — Permanent free weekly credit reports", url: "https://consumer.ftc.gov/consumer-alerts/2023/10/you-now-have-permanent-access-free-weekly-credit-reports" },
+    { label: "AnnualCreditReport.com (official)", url: "https://www.annualcreditreport.com/" },
+    { label: "CFPB — Submit a complaint", url: "https://www.consumerfinance.gov/complaint/" },
+  ],
+  "debt-collector-rules": [
+    { label: "CFPB — When and how often can a debt collector call?", url: "https://www.consumerfinance.gov/ask-cfpb/when-and-how-often-can-a-debt-collector-call-me-on-the-phone-en-2110/" },
+    { label: "FTC — Debt collection FAQs", url: "https://consumer.ftc.gov/articles/debt-collection-faqs" },
+    { label: "CFPB — Regulation F, harassing conduct (§ 1006.14)", url: "https://www.consumerfinance.gov/rules-policy/regulations/1006/14/" },
+  ],
+  "at-will-employment": [
+    { label: "EEOC — Prohibited employment practices", url: "https://www.eeoc.gov/prohibited-employment-policiespractices" },
+    { label: "EEOC — Time limits for filing a charge", url: "https://www.eeoc.gov/time-limits-filing-charge" },
+    { label: "NLRB — Your right to discuss wages", url: "https://www.nlrb.gov/about-nlrb/rights-we-protect/your-rights/your-rights-to-discuss-wages" },
+  ],
+  "w2-vs-1099": [
+    { label: "IRS — Self-employment tax", url: "https://www.irs.gov/businesses/small-businesses-self-employed/self-employment-tax-social-security-and-medicare-taxes" },
+    { label: "IRS — Estimated taxes", url: "https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes" },
+    { label: "IRS — Independent contractor or employee?", url: "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee" },
+  ],
+  "health-insurance-after-job-loss": [
+    { label: "HealthCare.gov — If you lose job-based coverage", url: "https://www.healthcare.gov/have-job-based-coverage/if-you-lose-job-based-coverage/" },
+    { label: "HealthCare.gov — COBRA coverage when you're unemployed", url: "https://www.healthcare.gov/unemployed/cobra-coverage/" },
+    { label: "Dept. of Labor — COBRA FAQs", url: "https://www.dol.gov/agencies/ebsa/about-ebsa/our-activities/resource-center/faqs/cobra-continuation-health-coverage-workers" },
+  ],
+  "frozen-pipes": [
+    { label: "American Red Cross — Frozen pipes", url: "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/winter-storm/frozen-pipes.html" },
+    { label: "Insurance Information Institute — Severe cold weather survival guide", url: "https://www.iii.org/article/the-homeowners-severe-cold-weather-survival-guide" },
+  ],
 };
 
 /* Public correction notes for substantive fixes (the About page promises these). */

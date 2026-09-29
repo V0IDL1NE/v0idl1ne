@@ -54,7 +54,7 @@ export const tools: Extra[] = [
     title: "Is it too late?",
     seoTitle: "Consumer Rights Deadline Calculator: Disputes, Fraud, and More",
     description: "Card disputes, fraud reporting, door-to-door sale cancellations — enter the date and see exactly when your window closes.",
-    relatedPosts: ["credit-card-chargebacks", "return-policy-tricks", "statute-of-limitations-basics", "credit-freeze-vs-lock"],
+    relatedPosts: ["credit-card-chargebacks", "debt-collector-rules", "dispute-credit-report-errors", "return-policy-tricks", "statute-of-limitations-basics", "got-scammed-what-now"],
   },
 ];
 
@@ -75,7 +75,7 @@ export const guides: Extra[] = [
     title: "Moving into your first apartment",
     seoTitle: "First Apartment Checklist: Lease, Move-In, and Tenant Rights",
     description: "Before you sign, the day you get the keys, and the first week — the stuff that decides whether you get your deposit back.",
-    relatedPosts: ["lease-clauses", "renters-insurance", "landlord-rights", "water-shutoff-locations", "smoke-co-detector-placement", "breaker-box-basics"],
+    relatedPosts: ["lease-clauses", "renters-insurance", "landlord-rights", "water-shutoff-locations", "frozen-pipes", "smoke-co-detector-placement", "breaker-box-basics"],
   },
   {
     kind: "GUIDE",
@@ -84,7 +84,7 @@ export const guides: Extra[] = [
     title: "You got a huge medical bill",
     seoTitle: "Got a Huge Medical Bill? What to Do, Step by Step",
     description: "Don't pay it yet. The order of operations that routinely cuts hospital bills — sometimes to zero.",
-    relatedPosts: ["medical-bill-negotiation", "insurance-terms-decoded", "er-vs-urgent-care", "statute-of-limitations-basics"],
+    relatedPosts: ["medical-bill-negotiation", "insurance-terms-decoded", "debt-collector-rules", "dispute-credit-report-errors", "er-vs-urgent-care", "statute-of-limitations-basics"],
   },
   {
     kind: "GUIDE",
@@ -93,7 +93,7 @@ export const guides: Extra[] = [
     title: "Buying a used car",
     seoTitle: "Used Car Buying Checklist: Inspection, History, and Scams to Avoid",
     description: "The checks that take an hour and save thousands — history report, inspection, the sticker most people ignore, and the add-ons to refuse.",
-    relatedPosts: ["check-engine-light-codes", "tire-tread-penny-test", "lemon-law-basics", "extended-warranties-scam"],
+    relatedPosts: ["check-engine-light-codes", "tire-tread-penny-test", "correct-tire-pressure", "lemon-law-basics", "extended-warranties-scam"],
   },
 ];
 
@@ -105,7 +105,7 @@ export const printables: Extra[] = [
     title: "Home emergency sheet",
     seoTitle: "Printable Home Emergency Sheet: Shutoffs, Breakers, Contacts",
     description: "One page on the fridge: where every shutoff is, what each breaker controls, and who to call. Fill it in once.",
-    relatedPosts: ["water-shutoff-locations", "breaker-box-basics", "smoke-co-detector-placement", "home-inventory-for-insurance"],
+    relatedPosts: ["water-shutoff-locations", "frozen-pipes", "breaker-box-basics", "smoke-co-detector-placement", "home-inventory-for-insurance"],
   },
   {
     kind: "PRINTABLE",
