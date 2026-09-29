@@ -9,6 +9,8 @@ import Footer from "@/components/Footer";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareBar from "@/components/ShareBar";
 import ExtrasLinks from "@/components/ExtrasLinks";
+import PostSources from "@/components/PostSources";
+import { sourcesForPost } from "@/lib/sources";
 
 export function generateStaticParams() {
   return posts.map(p => ({ slug: p.slug }));
@@ -103,6 +105,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     description: post.excerpt,
     articleSection: post.category,
     keywords: post.tags.join(", "),
+    dateModified: sourcesForPost(post.slug).reviewed,
+    citation: sourcesForPost(post.slug).sources.map(src => src.url),
     url: `https://v0idl1ne.com/blog/${post.slug}`,
     publisher: {
       "@type": "Organization",
@@ -135,6 +139,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="pv-body">
           <Content />
         </div>
+        <PostSources slug={post.slug} />
         <ShareBar title={post.title} tip={post.excerpt} path={`/blog/${post.slug}`} />
         <ExtrasLinks items={extrasForPost(post.slug)} label="// PUT THIS TO USE" />
         <PostActions postTitle={post.title} postSlug={post.slug} />

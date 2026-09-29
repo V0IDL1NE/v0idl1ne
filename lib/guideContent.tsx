@@ -299,7 +299,7 @@ export const guideContent: Record<string, GuideSection[]> = {
         },
         {
           title: "Know how credit reporting treats medical debt",
-          body: <>The three credit bureaus currently remove paid medical collections and don&apos;t report medical collections under $500. On old debt, don&apos;t make a &ldquo;good faith&rdquo; payment before checking the statute of limitations — it can restart the clock.</>,
+          body: <>The three credit bureaus voluntarily wait a full year before a medical collection can appear, don&apos;t report medical collections under $500, and remove them once paid. (A federal rule that would have gone further was struck down in 2025.) On old debt, don&apos;t make a &ldquo;good faith&rdquo; payment before checking the statute of limitations — it can restart the clock.</>,
           links: [{ href: "/blog/statute-of-limitations-basics", label: "OLD DEBT & THE CLOCK" }],
         },
       ],

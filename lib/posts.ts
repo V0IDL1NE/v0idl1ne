@@ -142,7 +142,7 @@ export const posts: Post[] = [
     slug: "generic-vs-brand-drugs",
     category: "HEALTH",
     title: "Generic drugs are the same drug",
-    excerpt: "Same active ingredient, same dosage, same clinical effect. The FDA requires it. Brand names cost 80–85% more for the same molecule.",
+    excerpt: "Same active ingredient, same dosage, same clinical effect. The FDA requires it. Generics typically cost 80–85% less for the same molecule.",
     readTime: "4 MIN READ",
     difficulty: "BEGINNER",
     tags: ["MEDICATION"],
@@ -336,7 +336,7 @@ export const posts: Post[] = [
   {
     slug: "space-heater-safety",
     category: "HOME",
-    title: "Space heaters cause more house fires than almost anything else you own",
+    title: "Space heaters cause most of the deaths from home heating fires",
     excerpt: "Three feet of clearance, direct into the wall, never an extension cord. The rules are simple. Most house fires from space heaters happen because someone skipped one of them.",
     readTime: "4 MIN READ",
     difficulty: "BEGINNER",
