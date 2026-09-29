@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const hubRoutes: MetadataRoute.Sitemap = ["/tools", "/guides", "/printables"].map(path => ({
+  const hubRoutes: MetadataRoute.Sitemap = ["/tools", "/guides", "/printables", "/downloads"].map(path => ({
     url: `${SITE_URL}${path}`,
     changeFrequency: "weekly",
     priority: 0.8,

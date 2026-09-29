@@ -371,6 +371,7 @@ export default function Home() {
             <Link href="/tools" className="tool-btn small">TOOLS</Link>
             <Link href="/guides" className="tool-btn small">SITUATION GUIDES</Link>
             <Link href="/printables" className="tool-btn small">PRINTABLES</Link>
+            <Link href="/downloads" className="tool-btn small">FREE PC TOOLS</Link>
           </div>
         )}
 
@@ -460,6 +461,13 @@ export default function Home() {
               >
                 <div className="st" style={s.sideTitle}>Free printables</div>
                 <div style={s.sideMeta}>EMERGENCY SHEET — MOVE-IN CHECKLIST — RIGHTS CARD</div>
+              </Link>
+              <Link href="/downloads" style={s.sideItem}
+                onMouseEnter={e => { (e.currentTarget.querySelector(".st") as HTMLElement).style.color = "#aa44ff"; }}
+                onMouseLeave={e => { (e.currentTarget.querySelector(".st") as HTMLElement).style.color = "#c8bedd"; }}
+              >
+                <div className="st" style={s.sideTitle}>Free Windows tools</div>
+                <div style={s.sideMeta}>SPECS — DISK USAGE — NETWORK — STARTUP</div>
               </Link>
             </div>
 

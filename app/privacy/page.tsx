@@ -52,6 +52,11 @@ export default function PrivacyPage() {
       <h2 style={h2}>What isn&apos;t collected</h2>
       <ul style={ul}>
         <li>The <Link href="/tools" style={a}>tools</Link> (calculators, checkers, deadline dates) run entirely in your browser. Nothing you enter is sent anywhere or saved.</li>
+        <li>
+          The <Link href="/downloads" style={a}>Windows tools</Link> don&apos;t collect or send anything about you. The only
+          network requests they make are Network Info&apos;s public-IP lookup (ipify.org) when it opens, and its ping and
+          speed tests (Google, Cloudflare) when you run them. The download files themselves are served by GitHub.
+        </li>
         <li>No advertising cookies, tracking pixels, or social media scripts. The share buttons are plain links — nothing loads from those services unless you click one, and then their own privacy policy applies.</li>
         <li>We don&apos;t sell or share personal information, and we don&apos;t use it for targeted advertising.</li>
       </ul>

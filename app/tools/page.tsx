@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { tools, guides, printables } from "@/lib/extras";
 import PageShell from "@/components/PageShell";
 import ExtrasLinks from "@/components/ExtrasLinks";
@@ -19,6 +20,12 @@ export default function ToolsIndex() {
       <ExtrasLinks items={tools} />
       <ExtrasLinks items={guides} label="// SITUATION GUIDES" />
       <ExtrasLinks items={printables} label="// PRINTABLES" />
+      <div className="section-label">{"// FOR YOUR PC"}</div>
+      <Link href="/downloads" className="card-link">
+        <div className="card-tag">{"// DOWNLOAD"}</div>
+        <div className="card-title">Free Windows tools</div>
+        <p className="card-desc">Specs report, disk space finder, network diagnostics, and a startup manager. Single-file, no installer.</p>
+      </Link>
     </PageShell>
   );
 }
