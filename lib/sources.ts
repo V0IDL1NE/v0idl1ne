@@ -19,7 +19,65 @@ const NO_SURPRISES = { label: "CMS — No Surprises Act: your rights", url: "htt
 const ACLU_STOPPED = { label: "ACLU — Know your rights: stopped by police", url: "https://www.aclu.org/know-your-rights/stopped-by-police" };
 const III_RENTERS = { label: "Insurance Information Institute — Renters insurance", url: "https://www.iii.org/article/renters-insurance" };
 
+const TRUE_STORY_SLUGS: Record<string, true> = Object.fromEntries([
+  "banned-encyclopedia-1752", "ernesto-miranda-story", "gideon-pencil-petition", "triangle-shirtwaist-fire", "tylenol-murders-safety-seals",
+  "elixir-sulfanilamide-fda", "firestone-tire-pressure-light", "equifax-breach-free-credit-freeze", "accidental-401k", "nader-gm-car-safety",
+].map(s => [s, true]));
+
 const sourceMap: Record<string, Source[]> = {
+  // True stories
+  "banned-encyclopedia-1752": [
+    { label: "ARTFL Encyclopédie Project (University of Chicago) — General chronology", url: "https://encyclopedie.uchicago.edu/general-chronology-and-publication-dates/general-chronology" },
+    { label: "ENCCRE (Académie des sciences) — Encyclopédie documentation", url: "https://enccre.academie-sciences.fr/encyclopedie/documentation/" },
+    { label: "Wikipedia — Encyclopédie", url: "https://en.wikipedia.org/wiki/Encyclop%C3%A9die" },
+    { label: "Wikipedia — Denis Diderot", url: "https://en.wikipedia.org/wiki/Denis_Diderot" },
+  ],
+  "ernesto-miranda-story": [
+    { label: "Miranda v. Arizona (1966)", url: "https://www.law.cornell.edu/supremecourt/text/384/436" },
+    { label: "Annenberg Classroom — The right to remain silent", url: "https://www.annenbergclassroom.org/resource/the-pursuit-of-justice/pursuit-justice-chapter-17-right-remain-silent/" },
+    { label: "Wikipedia — Ernesto Miranda", url: "https://en.wikipedia.org/wiki/Ernesto_Miranda" },
+  ],
+  "gideon-pencil-petition": [
+    { label: "Gideon v. Wainwright (1963)", url: "https://www.law.cornell.edu/supremecourt/text/372/335" },
+    { label: "U.S. Courts — Facts and case summary: Gideon v. Wainwright", url: "https://www.uscourts.gov/educational-resources/educational-activities/facts-and-case-summary-gideon-v-wainwright" },
+    { label: "Wikipedia — Gideon v. Wainwright", url: "https://en.wikipedia.org/wiki/Gideon_v._Wainwright" },
+  ],
+  "triangle-shirtwaist-fire": [
+    { label: "Cornell ILR — Remembering the 1911 Triangle Factory Fire", url: "https://trianglefire.ilr.cornell.edu/" },
+    { label: "OSHA — Emergency exit routes fact sheet", url: "https://www.osha.gov/sites/default/files/publications/emergency-exit-routes-factsheet.pdf" },
+    { label: "OSHA — File a safety complaint", url: "https://www.osha.gov/workers/file-complaint" },
+    { label: "Wikipedia — Triangle Shirtwaist Factory fire", url: "https://en.wikipedia.org/wiki/Triangle_Shirtwaist_Factory_fire" },
+  ],
+  "tylenol-murders-safety-seals": [
+    { label: "FDA — Milestones of drug regulation in the United States", url: "https://www.fda.gov/media/109482/download" },
+    { label: "FDA — MedWatch adverse event reporting", url: "https://www.fda.gov/safety/medwatch-fda-safety-information-and-adverse-event-reporting-program" },
+    { label: "Wikipedia — Chicago Tylenol murders", url: "https://en.wikipedia.org/wiki/Chicago_Tylenol_murders" },
+  ],
+  "elixir-sulfanilamide-fda": [
+    { label: "FDA — Sulfanilamide disaster", url: "https://www.fda.gov/about-fda/histories-product-regulation/sulfanilamide-disaster" },
+    { label: "FDA — Milestones of drug regulation in the United States", url: "https://www.fda.gov/media/109482/download" },
+    { label: "Wikipedia — Elixir sulfanilamide disaster", url: "https://en.wikipedia.org/wiki/Elixir_sulfanilamide_disaster" },
+  ],
+  "firestone-tire-pressure-light": [
+    { label: "49 CFR 571.138 — Tire pressure monitoring systems", url: "https://www.ecfr.gov/current/title-49/subtitle-B/chapter-V/part-571/subpart-B/section-571.138" },
+    { label: "NHTSA — Tires", url: "https://www.nhtsa.gov/equipment/tires" },
+    { label: "Wikipedia — Firestone and Ford tire controversy", url: "https://en.wikipedia.org/wiki/Firestone_and_Ford_tire_controversy" },
+  ],
+  "equifax-breach-free-credit-freeze": [
+    { label: "FTC — New federal law allows free credit freezes (2018)", url: "https://www.ftc.gov/news-events/news/press-releases/2018/09/starting-today-new-federal-law-allows-consumers-place-free-credit-freezes-yearlong-fraud-alerts" },
+    { label: "FTC — Equifax data breach settlement", url: "https://www.ftc.gov/enforcement/refunds/equifax-data-breach-settlement" },
+    { label: "Wikipedia — 2017 Equifax data breach", url: "https://en.wikipedia.org/wiki/2017_Equifax_data_breach" },
+  ],
+  "accidental-401k": [
+    { label: "IRS — 401(k) plan overview", url: "https://www.irs.gov/retirement-plans/plan-participant-employee/401k-resource-guide-plan-participants-401k-plan-overview" },
+    { label: "History.com — Meet the man who invented modern retirement", url: "https://www.history.com/articles/meet-the-man-who-invented-modern-retirement-401k" },
+    { label: "Wikipedia — 401(k)", url: "https://en.wikipedia.org/wiki/401(k)" },
+  ],
+  "nader-gm-car-safety": [
+    { label: "NHTSA — Check for recalls", url: "https://www.nhtsa.gov/recalls" },
+    { label: "Wikipedia — Unsafe at Any Speed", url: "https://en.wikipedia.org/wiki/Unsafe_at_Any_Speed" },
+    { label: "Wikipedia — National Traffic and Motor Vehicle Safety Act", url: "https://en.wikipedia.org/wiki/National_Traffic_and_Motor_Vehicle_Safety_Act" },
+  ],
   "hot-neutral-ground": [OSHA_ELECTRICAL, NFPA_ELECTRICAL, NFPA_70],
   "breaker-box-basics": [NFPA_ELECTRICAL, OSHA_ELECTRICAL],
   "gfci-afci-outlets": [NFPA_70, CPSC_GFCI, NFPA_ELECTRICAL],
@@ -257,7 +315,8 @@ const corrections: Record<string, string[]> = {
 };
 
 export function sourcesForPost(slug: string): PostSources & { corrections: string[] } {
-  return { reviewed: REVIEWED, sources: sourceMap[slug] ?? [], corrections: corrections[slug] ?? [] };
+  const reviewed = slug in TRUE_STORY_SLUGS ? "2026-09-30" : REVIEWED;
+  return { reviewed, sources: sourceMap[slug] ?? [], corrections: corrections[slug] ?? [] };
 }
 
 export const allSourceUrls = (): string[] => [...new Set(Object.values(sourceMap).flat().map(s => s.url))];

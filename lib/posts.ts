@@ -9,6 +9,97 @@ export type Post = {
 };
 
 export const posts: Post[] = [
+  // True stories (launch, Sept. 30 2026)
+  {
+    slug: "banned-encyclopedia-1752",
+    category: "TRUE STORIES",
+    title: "In 1752, France banned a book for teaching ordinary people how the world works",
+    excerpt: "Denis Diderot tried to write down everything — including the trade knowledge craftsmen kept to themselves. The king banned it, the Church condemned it, and the official in charge of the crackdown hid the manuscripts in his own house.",
+    readTime: "6 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "HISTORY"],
+  },
+  {
+    slug: "ernesto-miranda-story",
+    category: "TRUE STORIES",
+    title: "The man behind the Miranda warning was killed in a bar fight — and his suspect stayed silent",
+    excerpt: "Ernesto Miranda's case created the most famous words in American policing. He was convicted anyway, sold signed warning cards for $1.50, and when he was stabbed to death, the suspect used Miranda's own rights.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "KNOW YOUR RIGHTS"],
+  },
+  {
+    slug: "gideon-pencil-petition",
+    category: "TRUE STORIES",
+    title: "A drifter wrote to the Supreme Court in pencil from prison — and won everyone the right to a lawyer",
+    excerpt: "Clarence Earl Gideon asked for a lawyer and the judge said no. His handwritten petition led to a unanimous Supreme Court ruling, a retrial, and an acquittal in about an hour.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "KNOW YOUR RIGHTS"],
+  },
+  {
+    slug: "triangle-shirtwaist-fire",
+    category: "TRUE STORIES",
+    title: "146 garment workers died behind a locked door. That's why exits can't be locked today",
+    excerpt: "The Triangle Shirtwaist fire killed 146 people in 1911. The owners were acquitted and paid $75 per victim. The laws that came after are still why your workplace exits have to open.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "SAFETY"],
+  },
+  {
+    slug: "tylenol-murders-safety-seals",
+    category: "TRUE STORIES",
+    title: "The foil seal on your medicine exists because of seven murders nobody was ever convicted of",
+    excerpt: "In 1982, someone put cyanide in Tylenol capsules and put the bottles back on Chicago store shelves. Seven people died. Within weeks, the way every medicine in America is packaged changed.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "HEALTH"],
+  },
+  {
+    slug: "elixir-sulfanilamide-fda",
+    category: "TRUE STORIES",
+    title: "In 1937, a cough-syrup-style medicine killed over 100 people — and it was legal",
+    excerpt: "A drug company dissolved a new antibiotic in a toxic solvent related to antifreeze and never tested it. The only thing it could be fined for was the name on the label. That's why drugs have to be proven safe before you can buy them.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "HEALTH"],
+  },
+  {
+    slug: "firestone-tire-pressure-light",
+    category: "TRUE STORIES",
+    title: "The tire pressure light on your dashboard exists because of a deadly tire scandal",
+    excerpt: "Firestone tires on Ford Explorers started peeling apart at highway speed. Hundreds of people died, Ford and Firestone blamed each other over tire pressure, and Congress made a warning light mandatory in every new car.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "CAR MAINTENANCE"],
+  },
+  {
+    slug: "equifax-breach-free-credit-freeze",
+    category: "TRUE STORIES",
+    title: "Hackers stole 147 million Americans' Social Security numbers. That's why freezing your credit is free",
+    excerpt: "Equifax left a known security hole unpatched for months. Hackers walked out with the data of nearly half the country. The backlash forced a federal law that made credit freezes free for everyone.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "CREDIT"],
+  },
+  {
+    slug: "accidental-401k",
+    category: "TRUE STORIES",
+    title: "The 401(k) was an accident. A consultant found a loophole and it became how America retires",
+    excerpt: "Congress added a small section to the tax code in 1978 for executive bonuses. Two years later, a benefits consultant realized it could be used by regular workers, with an employer match. Now 401(k)s hold trillions.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "RETIREMENT"],
+  },
+  {
+    slug: "nader-gm-car-safety",
+    category: "TRUE STORIES",
+    title: "GM hired private investigators to dig up dirt on the man who said its cars were unsafe",
+    excerpt: "In 1965, Ralph Nader wrote a book saying carmakers were ignoring safety. General Motors put him under surveillance. It backfired, their president apologized to the Senate, and federal car safety standards became law.",
+    readTime: "5 MIN READ",
+    difficulty: "BEGINNER",
+    tags: ["TRUE STORY", "CAR SAFETY"],
+  },
   // Added Sept. 2026
   {
     slug: "got-scammed-what-now",
@@ -646,10 +737,10 @@ export function seoTitle(post: Post): string {
   return seoTitles[post.slug] ?? post.title;
 }
 
-export const categories = ["ALL", "ELECTRICAL", "LEGAL", "HEALTH", "HOME", "FINANCE", "AUTO", "TECH", "CONSUMER"];
+export const categories = ["ALL", "TRUE STORIES", "ELECTRICAL", "LEGAL", "HEALTH", "HOME", "FINANCE", "AUTO", "TECH", "CONSUMER"];
 
 export function categorySlug(category: string): string {
-  return category.toLowerCase();
+  return category.toLowerCase().replace(/ /g, "-");
 }
 
 export function categoryFromSlug(slug: string): string | undefined {

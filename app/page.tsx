@@ -132,7 +132,7 @@ function Modals({ open, onClose }: { open: ModalType; onClose: () => void }) {
               <label className="modal-label">CATEGORY</label>
               <select name="category" className="modal-select" defaultValue="">
                 <option value="" disabled>SELECT A CATEGORY</option>
-                {["ELECTRICAL","LEGAL","HEALTH","HOME","FINANCE","AUTO","TECH","CONSUMER","OTHER"].map(c => (
+                {["TRUE STORIES","ELECTRICAL","LEGAL","HEALTH","HOME","FINANCE","AUTO","TECH","CONSUMER","OTHER"].map(c => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
@@ -171,6 +171,7 @@ const s = {
     textDecoration: "none", letterSpacing: "0.15em",
     cursor: "pointer" as const, transition: "color 0.2s",
     background: "none", border: "none", padding: 0,
+    whiteSpace: "nowrap" as const,
   },
   /* splash */
   splashLogo: { display: "flex", flexDirection: "column" as const, alignItems: "center", gap: "1.5rem", zIndex: 1 },
@@ -330,6 +331,9 @@ export default function Home() {
               <a key={sx.name} href={sx.href} target="_blank" rel="noopener noreferrer" className="launch-link">{sx.name.toUpperCase()}</a>
             ))}
           </div>
+          <Link href="/blog/banned-encyclopedia-1752" className="launch-story">
+            {"// THE PUBLIC RECORD IS OPEN — READ THE STORY THAT STARTED IT →"}
+          </Link>
         </div>
         <div className="scroll-hint">
           <span className="scroll-hint-text">SCROLL</span>
