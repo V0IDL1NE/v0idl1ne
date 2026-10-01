@@ -336,6 +336,36 @@ body::before {
   line-height: 1.6;
 }
 
+/* LAUNCH PILL (homepage splash) */
+.launch-pill {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  margin-top: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid rgba(136, 0, 255, 0.5);
+  border-radius: 999px;
+  background: rgba(136, 0, 255, 0.08);
+  box-shadow: 0 0 24px rgba(136, 0, 255, 0.25);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  max-width: 92vw;
+}
+.launch-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff3366;
+  box-shadow: 0 0 10px #ff3366;
+  animation: v-pulse 1.4s ease-in-out infinite;
+}
+.launch-label { color: #c8bedd; }
+.launch-link { color: #aa44ff; text-decoration: none; border-bottom: 1px solid rgba(170, 68, 255, 0.4); }
+.launch-link:hover { color: #fff; border-bottom-color: #fff; }
+
 /* TOOLS / GUIDES / PRINTABLES */
 .card-link {
   display: block;

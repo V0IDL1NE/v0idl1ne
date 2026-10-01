@@ -8,6 +8,7 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 import { sendContact, honeypotStyle } from "@/lib/contact";
 import { searchPosts } from "@/lib/search";
 import { tools, guides } from "@/lib/extras";
+import { SOCIALS } from "@/lib/social";
 
 /* ── Inline SVG triangle (reused in splash + nav) ── */
 function Triangle({ size }: { size: number }) {
@@ -322,6 +323,13 @@ export default function Home() {
             V<span style={{ color: "#aa44ff" }}>0</span>IDL<span style={{ color: "#aa44ff" }}>1</span>NE
           </div>
           <div style={s.splashSub}>KNOWLEDGE THEY FORGOT TO GIVE YOU</div>
+          <div className="launch-pill">
+            <span className="launch-dot" aria-hidden="true" />
+            <span className="launch-label">NOW LIVE — A NEW VIDEO EVERY DAY ON</span>
+            {SOCIALS.map(sx => (
+              <a key={sx.name} href={sx.href} target="_blank" rel="noopener noreferrer" className="launch-link">{sx.name.toUpperCase()}</a>
+            ))}
+          </div>
         </div>
         <div className="scroll-hint">
           <span className="scroll-hint-text">SCROLL</span>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SOCIALS } from "@/lib/social";
 
 export default function Footer() {
   return (
@@ -59,6 +60,14 @@ export default function Footer() {
         <a href="/rss.xml" style={{ color: "#4a4060", textDecoration: "underline", textUnderlineOffset: "2px" }}>
           RSS
         </a>
+      </div>
+      <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.15em", color: "#6a5f80", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+        <span>{"// FOLLOW:"}</span>
+        {SOCIALS.map(sx => (
+          <a key={sx.name} href={sx.href} target="_blank" rel="noopener noreferrer" style={{ color: "#aa44ff", textDecoration: "none" }}>
+            {sx.name.toUpperCase()}
+          </a>
+        ))}
       </div>
     </footer>
   );
